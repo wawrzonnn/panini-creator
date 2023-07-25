@@ -24,9 +24,7 @@ const PaniniCreator = () => {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 2 }}>
-					<h1 className={getH1Classes}>Panini Creator</h1>
-                    <form></form>
-					<button>ORDER</button>
+					<h1 className={getH1Classes}>THIS IS THE VIEW WHERE THE PANINI CREATION FORM WILL BE.</h1>
 				</motion.div>
 			</div>
 		</>
