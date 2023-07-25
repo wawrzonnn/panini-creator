@@ -1,0 +1,25 @@
+.panini__hidden {
+    opacity: 0;
+    filter: blur(8px);
+    transition: opacity 2s, filter 2s;
+  }
+  
+  .panini__visible {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  .container {
+    background-color: white;
+    height: 1000px;
+    width: 1440px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 {
+    color: black;
+  }
