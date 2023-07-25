@@ -5,7 +5,7 @@ import styles from './CarouselSelect.module.scss'
 
 import { ArrowLeft } from '../../assets/icons/ArrowLeft'
 import { ArrowRight } from '../../assets/icons/ArrowRight'
-import { carouselLeft, carouselRight } from '../../animations/carouselAnimation'
+
 interface CarouselSelectProps {
 	items: string[]
 	onSelect: (selectedItem: string) => void

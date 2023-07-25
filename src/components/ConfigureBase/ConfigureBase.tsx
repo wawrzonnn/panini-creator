@@ -18,118 +18,89 @@ import { vegetableVariant } from '../../data/vegetable'
 import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
 import { DropdownWrapper } from '../DropdownWrapper/DropdownWrapper'
 import { CarouselWrapper } from '../CarouselWrapper/CarouselWrapper'
+
+type ComponentType = 'Cheese' | 'Meat' | 'Dressing'
+type ExtraComponentState = Record<ComponentType, number>
+type HiddenSection = 'Cheese' | 'Meat' | 'Dressing' | null
+
 const ConfigureBase = () => {
-    const [selectedBread, setSelectedBread] = useState(breadVariants[0])
-    const [selectedCheese, setSelectedCheese] = useState(cheeseVariants[0])
-    const [selectedMeat, setSelectedMeat] = useState(meatVariants[0])
-    const [selectedDressing, setSelectedDressing] = useState(meatVariants[0])
-    const [switchOn, setSwitchOn] = useState<boolean>(true)
-    const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
+	const [selectedBread, setSelectedBread] = useState(breadVariants[0])
+	const [selectedCheese, setSelectedCheese] = useState(cheeseVariants[0])
+	const [selectedMeat, setSelectedMeat] = useState(meatVariants[0])
+	const [selectedDressing, setSelectedDressing] = useState(dressingVariants[0])
+	const [switchOn, setSwitchOn] = useState<boolean>(true)
+	const [hiddenSection, setHiddenSection] = useState<HiddenSection>(null)
+	const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
 
-    const [extraCheeseComponents, setExtraCheeseComponents] = useState<any[]>([])
-    const [extraMeatComponents, setExtraMeatComponents] = useState<any[]>([])
-    const [extraDressingComponents, setExtraDressingComponents] = useState<any[]>([])
-    const [extraCheeseComponentHidden, setExtraCheeseComponentHidden] = useState<Record<number, boolean>>({})
-    const [extraMeatComponentHidden, setExtraMeatComponentHidden] = useState<Record<number, boolean>>({})
-    const [extraDressingComponentHidden, setExtraDressingComponentHidden] = useState<Record<number, boolean>>({})
+	const [extraComponents, setExtraComponents] = useState<ExtraComponentState>({
+		Cheese: 0,
+		Meat: 0,
+		Dressing: 0,
+	})
+	const addExtraComponent = (componentType: ComponentType) => {
+		setExtraComponents(prevComponents => ({
+			...prevComponents,
+			[componentType]: prevComponents[componentType] + 1,
+		}))
+	}
+	const hideExtraComponent = (componentType: ComponentType, index: number) => {
+		setExtraComponents(prevComponents => ({
+			...prevComponents,
+			[componentType]: prevComponents[componentType] === 0 ? 0 : prevComponents[componentType] - 1,
+		}))
+	}
+	const handleSwitch = (section: HiddenSection) => {
+		setHiddenSection(prevSection => (prevSection === section ? null : section))
+	}
 
-    const addExtraCheeseComponent = () => setExtraCheeseComponents([...extraCheeseComponents, {}])
-    const addExtraMeatComponent = () => setExtraMeatComponents([...extraMeatComponents, {}])
-    const addExtraDressingComponent = () => setExtraDressingComponents([...extraDressingComponents, {}])
+	const renderSection = (section: ComponentType, variants: string[], onSelect: (selection: string) => void, WrapperComponent: React.ElementType, SelectionComponent: React.ElementType) => {
 
-    const hideExtraCheeseComponent = (index: number) => {
-        setExtraCheeseComponentHidden(prevHidden => ({ ...prevHidden, [index]: true }))
-    }
+		return (
+			<section className={styles.extra__ingredients_container}>
+				<SwitchWrapper title={section} handleSwitch={() => handleSwitch(section as HiddenSection)} />
+				<div className={styles.extra__ingredients_columns}>
+					<WrapperComponent
+						items={variants}
+						addExtraComponent={() => addExtraComponent(section)}
+						onSelect={onSelect}
+					/>
+					{hiddenSection !== section &&
+						[...Array(extraComponents[section])].map((_, index) => {
+							return (
+								<div key={index} className={styles.add__more_margin}>
+									<Remove onClick={() => hideExtraComponent(section, index)} />
+									<SelectionComponent items={variants} onSelect={onSelect} />
+								</div>
+							)
+						})}
+				</div>
+			</section>
+		)
+	}
 
-    const hideExtraMeatComponent = (index: number) => {
-        setExtraMeatComponentHidden(prevHidden => ({ ...prevHidden, [index]: true }))
-    }
+	return (
+		<form>
+			<div className={styles.header}>
+				<span className={styles.header__title}>Panini Creator</span>
+				<button className={styles.header__button}>
+					<Dices />
+					RANDOMIZE PANINI
+				</button>
+			</div>
 
-    const hideExtraDressingComponent = (index: number) => {
-        setExtraDressingComponentHidden(prevHidden => ({ ...prevHidden, [index]: true }))
-    }
+			<main className={styles.form__wrapper}>
+				<span className={styles.form__title}>CONFIGURE BASE</span>
+				<div className={styles.bread__wrapper}>
+					<IngredientHeader>Bread</IngredientHeader>
+					<CarouselSelect items={breadVariants} onSelect={setSelectedBread} icon={breadIcon} />
+				</div>
 
-    const handleSwitch = () => {
-        setSwitchOn(!switchOn)
-    }
-
-    return (
-        <form>
-            <div className={styles.header}>
-                <span className={styles.header__title}>Panini Creator</span>
-                <button className={styles.header__button}>
-                    <Dices />
-                    RANDOMIZE PANINI
-                </button>
-            </div>
-
-            <main className={styles.form__wrapper}>
-                <span className={styles.form__title}>CONFIGURE BASE</span>
-                <div className={styles.bread__wrapper}>
-                    <IngredientHeader>Bread</IngredientHeader>
-                    <CarouselSelect items={breadVariants} onSelect={setSelectedBread} icon={breadIcon} />
-                </div>
-
-                <section className={styles.extra__ingredients_container}>
-				<SwitchWrapper title={'Cheese'} handleSwitch={handleSwitch} />
-                    <div className={styles.extra__ingredients_columns}>
-						<DropdownWrapper items={cheeseVariants} addExtraComponent={addExtraCheeseComponent} onSelect={setSelectedCheese} />
-                        {switchOn && extraCheeseComponents.map((_, index) => {
-                            const hidden = extraCheeseComponentHidden[index]
-                            const componentClasses = `${styles.add__more_margin} ${hidden ? styles.hidden : ''}`
-                            return (
-                                <div key={index}>
-                                    <div className={componentClasses}>
-                                        <Remove onClick={() => hideExtraCheeseComponent(index)} />
-                                        <DropdownSelect items={cheeseVariants} onSelect={setSelectedCheese} />
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </section>
-
-                <section className={styles.extra__ingredients_container}>
-                 <SwitchWrapper title={'Meat'} handleSwitch={handleSwitch} />
-                    <div className={styles.extra__ingredients_columns}>
-						<DropdownWrapper items={meatVariants} addExtraComponent={addExtraMeatComponent} onSelect={setSelectedMeat} />
-                        {switchOn && extraMeatComponents.map((_, index) => {
-                            const hidden = extraMeatComponentHidden[index]
-                            const componentClasses = `${styles.add__more_margin} ${hidden ? styles.hidden : ''}`
-                            return (
-                                <div key={index}>
-                                    <div className={componentClasses}>
-                                        <Remove onClick={() => hideExtraMeatComponent(index)} />
-                                        <DropdownSelect items={meatVariants} onSelect={setSelectedMeat} />
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </section>
-
-				<section className={styles.extra__ingredients_container}>
-                 <SwitchWrapper title={'Dressing'} handleSwitch={handleSwitch} />
-                    <div className={styles.extra__ingredients_columns}>
-						<CarouselWrapper items={dressingVariants} addExtraComponent={addExtraDressingComponent} onSelect={setSelectedDressing} />
-                        {switchOn && extraDressingComponents.map((_, index) => {
-                            const hidden = extraDressingComponentHidden[index]
-                            const componentClasses = `${styles.add__more_margin} ${hidden ? styles.hidden : ''}`
-                            return (
-                                <div key={index}>
-                                    <div className={componentClasses}>
-                                        <Remove onClick={() => hideExtraDressingComponent(index)} />
-                                        <CarouselSelect items={dressingVariants} onSelect={setSelectedDressing} />
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </section>
-
-            </main>
-        </form>
-    )
+				{renderSection('Cheese', cheeseVariants, setSelectedCheese, DropdownWrapper, DropdownSelect)}
+				{renderSection('Meat', meatVariants, setSelectedMeat, DropdownWrapper, DropdownSelect)}
+				{renderSection('Dressing', dressingVariants, setSelectedDressing, CarouselWrapper, CarouselSelect)}
+			</main>
+		</form>
+	)
 }
 
 export default ConfigureBase

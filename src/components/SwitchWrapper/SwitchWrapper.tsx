@@ -4,7 +4,7 @@ import { IngredientHeader } from '../IngredientHeader/IngredientHeader';
 import styles from './SwitchWrapper.module.scss';
 
 interface SwitchWrapperProps {
-  title: string;
+  title: string | null;
   handleSwitch: () => void;
 }
 
