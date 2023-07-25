@@ -3,7 +3,8 @@ import { motion } from 'framer-motion'
 import styles from './PaniniCreator.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
-const PaniniCreator = () => {
+
+const PaniniCreator: React.FC<{ onOrder: () => void }> = ({ onOrder }) => {
 	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
