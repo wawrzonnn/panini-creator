@@ -3,11 +3,11 @@ import { motion } from 'framer-motion'
 import styles from './PaniniCreator.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
-const PaniniCreator: React.FC<{ onOrder: () => void }> = ({ onOrder }) => {
+const PaniniCreator = () => {
 	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
-		setTimeout(() => setIsVisible(true), 500) // Delay the text appearance for 500ms
+		setTimeout(() => setIsVisible(true), 500)
 	}, [])
 	const getH1Classes = cx({
 		[styles.panini__visible]: isVisible,
@@ -24,7 +24,7 @@ const PaniniCreator: React.FC<{ onOrder: () => void }> = ({ onOrder }) => {
 					exit={{ opacity: 0 }}
 					transition={{ duration: 2 }}>
 					<h1 className={getH1Classes}>Tworzenie Panini</h1>
-					<button onClick={onOrder}>ORDER</button>
+					<button>ORDER</button>
 				</motion.div>
 			</div>
 		</>
