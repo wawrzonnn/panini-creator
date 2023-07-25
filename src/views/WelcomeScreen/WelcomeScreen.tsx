@@ -7,12 +7,11 @@ const cx = classNames.bind(styles);
 
 import { fadeLeft, fadeRight, fadeDown, fadeUp } from '../../animations/welcomeScreenAnimations';
 
-const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
+const WelcomeScreen = () => {
 	const [startAnimation, setStartAnimation] = useState(false)
 
 	const handleClick = () => {
 		setStartAnimation(true)
-		setTimeout(onStart, 4000) 
 	}
   const getHeaderClasses = cx({
     [styles.header]: true,
