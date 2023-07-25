@@ -1,0 +1,23 @@
+.circle {
+	position: relative; /* Dodano */
+	width: 17px;
+	height: 17px;
+	border-radius: 50%;
+	border: 0.5px solid black;
+	color: black;
+	background-color: white;
+	transition: all 0.2s;
+}
+
+.circle:hover {
+	color: white;
+	background-color: black;
+}
+
+.minus {
+	position: absolute;
+	top: -11.5px;
+	left: 4.5px;
+	font-size: 15px;
+    cursor: pointer;
+}

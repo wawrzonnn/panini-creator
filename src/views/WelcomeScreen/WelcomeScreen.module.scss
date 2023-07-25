@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
-
 .container {
 	background-color: white;
 	height: 1000px;
-	width: 1440px;
+	width: 100%;
 	position: relative;
 	overflow: hidden;
 	display: flex;
@@ -19,7 +16,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 1045px;
-	padding: 50px 0;
+	padding: 50px 1000px;
 	border-top: .5px solid #000;
 	border-bottom: .5px solid #000;
 	color: #000;
