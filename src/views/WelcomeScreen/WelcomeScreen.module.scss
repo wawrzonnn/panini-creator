@@ -1,110 +1,107 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
-
 .container {
-	background-color: white;
-	height: 1000px;
-	width: 1440px;
-	position: relative;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  background-color: white;
+  height: 1000px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header {
-	backface-visibility: hidden;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 1045px;
-	padding: 50px 0;
-	border-top: .5px solid #000;
-	border-bottom: .5px solid #000;
-	color: #000;
-	font-family: Instrument Serif;
-	font-size: 46px;
-	font-weight: 400;
-	z-index: 999;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1045px;
+  padding: 50px 1000px;
+  border-top: 0.5px solid #000;
+  border-bottom: 0.5px solid #000;
+  color: #000;
+  font-family: Instrument Serif;
+  font-size: 46px;
+  font-weight: 400;
+  z-index: 999;
 }
 
 .hidden__border {
-	border-top: none;
-	border-bottom: none;
+  border-top: none;
+  border-bottom: none;
 }
 
 .button {
-	display: inline-flex;
-	padding: 14px 20px;
-	justify-content: center;
-	align-items: center;
-	font-family: Oxygen Mono;
-	font-size: 12px;
-	font-weight: 400;
-	border: 1px solid transparent;
-	background: none;
-	cursor: pointer;
-	z-index: 998;
+  display: inline-flex;
+  padding: 14px 20px;
+  justify-content: center;
+  align-items: center;
+  font-family: Oxygen Mono;
+  font-size: 12px;
+  font-weight: 400;
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  z-index: 998;
 }
 
 .button:hover {
-	border: 1px solid black;
-    transition: 1s;
+  border: 1px solid black;
+  transition: 1s;
 }
 
 .circle {
-	position: absolute;
-	width: 1070px;
-	height: 1070px;
-	border-radius: 50%;
-	border: 0.5px solid black;
-	background: transparent;
+  position: absolute;
+  width: 1070px;
+  height: 1070px;
+  border-radius: 50%;
+  border: 0.5px solid black;
+  background: transparent;
 
-	&__leftinner {
-		@extend .circle;
-		right: 350px;
-	}
-	&__rightinner {
-		@extend .circle;
-		left: 350px;
-	}
-	&__left {
-		@extend .circle;
-		right: 950px;
-	}
-	&__right {
-		@extend .circle;
-		left: 950px;
-	}
+  &__leftinner {
+    @extend .circle;
+    right: 350px;
+  }
+  &__rightinner {
+    @extend .circle;
+    left: 350px;
+  }
+  &__left {
+    @extend .circle;
+    right: 950px;
+  }
+  &__right {
+    @extend .circle;
+    left: 950px;
+  }
 }
 
 .halfCircle__left {
-	@extend .circle;
-	width: 535px;
-	border-right: none;
-	border-radius: 535px 0 0 535px;
-	left: 74px;
+  @extend .circle;
+  width: 535px;
+  border-right: none;
+  border-radius: 535px 0 0 535px;
+  left: 74px;
 }
 
 .halfCircle__right {
-	@extend .circle;
-	width: 535px;
-	border-left: none;
-	border-radius: 0 535px 535px 0;
-	right: 74px;
+  @extend .circle;
+  width: 535px;
+  border-left: none;
+  border-radius: 0 535px 535px 0;
+  right: 74px;
 }
 
 .circle__up {
-	@extend .circle;
-	width: 632px;
-	height: 632px;
-	top: -210px
+  @extend .circle;
+  width: 632px;
+  height: 632px;
+  top: -210px;
 }
 
 .circle__down {
-	@extend .circle;
-	width: 632px;
-	height: 632px;
-	bottom: -210px
+  @extend .circle;
+  width: 632px;
+  height: 632px;
+  bottom: -210px;
 }

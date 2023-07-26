@@ -1,0 +1,13 @@
+.default {
+  display: inline-flex;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  background: var(--gray, #fbfbfb);
+  border: 0.5px solid transparent;
+}
+
+.selected {
+  border: 0.5px solid var(--black, #000);
+  background: var(--white, #fff);
+}

@@ -2,12 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.scss'
-import { AppContainer } from './app_container/AppContainer'
+import { Container } from './container/Container'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<React.StrictMode>
-		<AppContainer>
-			<App />
-		</AppContainer>
-	</React.StrictMode>
+  <React.StrictMode>
+    <Container>
+      <App />
+    </Container>
+  </React.StrictMode>
 )
