@@ -17,8 +17,8 @@
 	align-items: center;
 	width: 1045px;
 	padding: 50px 1000px;
-	border-top: .5px solid #000;
-	border-bottom: .5px solid #000;
+	border-top: 0.5px solid #000;
+	border-bottom: 0.5px solid #000;
 	color: #000;
 	font-family: Instrument Serif;
 	font-size: 46px;
@@ -47,7 +47,7 @@
 
 .button:hover {
 	border: 1px solid black;
-    transition: 1s;
+	transition: 1s;
 }
 
 .circle {
@@ -96,12 +96,12 @@
 	@extend .circle;
 	width: 632px;
 	height: 632px;
-	top: -210px
+	top: -210px;
 }
 
 .circle__down {
 	@extend .circle;
 	width: 632px;
 	height: 632px;
-	bottom: -210px
+	bottom: -210px;
 }

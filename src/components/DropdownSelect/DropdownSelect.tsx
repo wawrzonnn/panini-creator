@@ -26,24 +26,18 @@ export const DropdownSelect = ({ items, onSelect }: DropdownSelectProps) => {
 
 	return (
 		<div className={styles.wrapper} onClick={handleToggle}>
-			<div className={styles.selectedItem}>
-				{selectedItem}
-			</div>
+			<div className={styles.selectedItem}>{selectedItem}</div>
 			{isOpen && (
 				<div className={styles.options}>
 					{items.map((item, index) => {
 						if (item !== selectedItem) {
 							return (
-								<div 
-									key={index} 
-									className={styles.option} 
-									onClick={() => handleSelect(item)}
-								>
+								<div key={index} className={styles.option} onClick={() => handleSelect(item)}>
 									{item}
 								</div>
 							)
 						}
-						return null;
+						return null
 					})}
 				</div>
 			)}

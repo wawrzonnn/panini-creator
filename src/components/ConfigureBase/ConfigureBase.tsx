@@ -133,7 +133,7 @@ const ConfigureBase = () => {
 				{renderSection('Meat', meatVariants, setSelectedMeat, DropdownWrapper, DropdownSelect)}
 				{renderSection('Dressing', dressingVariants, setSelectedDressing, CarouselWrapper, CarouselSelect)}
 				<section className={styles.ingredients_container}>
-						<IngredientHeader>Bread</IngredientHeader>
+					<IngredientHeader>Bread</IngredientHeader>
 					<div className={styles.vegetables_wrapper}>
 						{vegetableVariant.map((veggie, index) => (
 							<ButtonSelect

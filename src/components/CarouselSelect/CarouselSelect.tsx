@@ -40,11 +40,13 @@ export const CarouselSelect = ({ items, onSelect, icon }: CarouselSelectProps) =
 			<button type='button' onClick={handlePrev}>
 				<ArrowLeft />
 			</button>
-			<span>{icon}{items[currentIndex]}</span>
+			<span>
+				{icon}
+				{items[currentIndex]}
+			</span>
 			<button type='button' onClick={handleNext}>
 				<ArrowRight />
 			</button>
 		</div>
 	)
 }
-

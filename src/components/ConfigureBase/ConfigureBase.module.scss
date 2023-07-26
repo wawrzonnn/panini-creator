@@ -30,24 +30,24 @@
 }
 
 .header_button svg {
-    transition: all 1.5s ease-in-out;
-    transform: rotate(0deg);
+	transition: all 1.5s ease-in-out;
+	transform: rotate(0deg);
 }
 
 .header_button:hover svg {
-    animation: dice-roll 0.5s linear;
+	animation: dice-roll 0.5s linear;
 }
 
 @keyframes dice-roll {
-    0% {
-        transform: rotate(0deg);
-    }
-    50% {
-        transform: rotate(360deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(360deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
 }
 
 .form_container {
@@ -80,7 +80,7 @@
 	padding: 20px 0;
 }
 
-.ingredients_container{
+.ingredients_container {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
@@ -102,10 +102,8 @@
 	margin-top: 10px;
 }
 
-
-
 .hidden {
-    display: none;
+	display: none;
 }
 
 .vegetables_wrapper {
