@@ -146,7 +146,7 @@ const ConfigureBase = () => {
                 key={index}
                 item={formatToTitleCase(veggie)}
                 onClick={handleButtonClick}
-                selected={selectedVegetables.includes(veggie)}
+                selected={selectedVegetables.includes(formatToTitleCase(veggie))}
               />
             ))}
           </div>
