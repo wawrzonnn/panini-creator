@@ -28,7 +28,7 @@ import { formatToTitleCase } from '../../utils/formatToTitleCase'
 type IngredientType = 'cheese' | 'meat' | 'dressing'
 type ExtraIngredientState = Record<IngredientType, any[]>
 type HiddenIngredientState = Record<IngredientType, Record<number, boolean>>
-type HiddenSection = 'cheese' | 'meat' | 'dressing' | null
+type HiddenSectionState = Record<IngredientType, boolean>
 
 const ConfigureBase = () => {
   const [selectedBread, setSelectedBread] = useState(breadVariants[0])
@@ -36,43 +36,45 @@ const ConfigureBase = () => {
   const [selectedMeat, setSelectedMeat] = useState(meatVariants[0])
   const [selectedDressing, setSelectedDressing] = useState(dressingVariants[0])
   const [selectedVegetables, setSelectedVegetables] = useState<string[]>([])
-  const [hiddenSection, setHiddenSection] = useState<HiddenSection>(null)
   const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
 
-  const [addDisabled, setAddDisabled] = useState<Record<IngredientType, boolean>>({
+  const [hiddenSections, setHiddenSections] = useState<HiddenSectionState>({
     cheese: false,
     meat: false,
     dressing: false,
   })
+
   const [extraIngredients, setExtraIngredients] = useState<ExtraIngredientState>({
     cheese: [],
     meat: [],
     dressing: [],
   })
+
   const [extraIngredientHidden, setExtraIngredientHidden] = useState<HiddenIngredientState>({
     cheese: {},
     meat: {},
     dressing: {},
   })
+
   const addExtraIngredient = (ingredientType: IngredientType) => {
     setExtraIngredients((prevIngredients) => ({
       ...prevIngredients,
       [ingredientType]: [...prevIngredients[ingredientType], {}],
     }))
   }
+
   const hideExtraIngredient = (ingredientType: IngredientType, index: number) => {
     setExtraIngredientHidden((prevHidden) => ({
       ...prevHidden,
       [ingredientType]: { ...prevHidden[ingredientType], [index]: true },
     }))
   }
-  const handleSwitch = (section: HiddenSection) => {
-    setHiddenSection((prevSection) => (prevSection === section ? null : section))
-    if (section !== null)
-      setAddDisabled((prevState) => ({
-        ...prevState,
-        [section]: !prevState[section],
-      }))
+
+  const handleSwitch = (section: IngredientType) => {
+    setHiddenSections((prevSections) => ({
+      ...prevSections,
+      [section]: !prevSections[section],
+    }))
   }
 
   const handleButtonClick = (item: string) => {
@@ -94,25 +96,27 @@ const ConfigureBase = () => {
   ) => {
     return (
       <section className={styles.ingredients_container}>
-        <SwitchWrapper title={formatToTitleCase(section)} handleSwitch={() => handleSwitch(section as HiddenSection)} />
+        <SwitchWrapper title={formatToTitleCase(section)} handleSwitch={() => handleSwitch(section)} />
         <div className={styles.ingredients_columns}>
-          <WrapperIngredient
-            items={variants}
-            addExtraIngredient={() => addExtraIngredient(section)}
-            onSelect={onSelect}
-            disabled={addDisabled[section]}
-          />
-          {hiddenSection !== section &&
-            extraIngredients[section].map((_, index) => {
-              const hidden = extraIngredientHidden[section][index]
-              const ingredientClasses = `${styles.add_more} ${hidden ? styles.hidden : ''}`
-              return (
-                <div key={index} className={ingredientClasses}>
-                  <Remove onClick={() => hideExtraIngredient(section, index)} />
-                  <SelectionIngredient items={variants} onSelect={onSelect} />
-                </div>
-              )
-            })}
+          {!hiddenSections[section] && (
+            <>
+              <WrapperIngredient
+                items={variants}
+                addExtraIngredient={() => addExtraIngredient(section)}
+                onSelect={onSelect}
+              />
+              {extraIngredients[section].map((_, index) => {
+                const hidden = extraIngredientHidden[section][index]
+                const ingredientClasses = `${styles.add_more} ${hidden ? styles.hidden : ''}`
+                return (
+                  <div key={index} className={ingredientClasses}>
+                    <Remove onClick={() => hideExtraIngredient(section, index)} />
+                    <SelectionIngredient items={variants} onSelect={onSelect} />
+                  </div>
+                )
+              })}
+            </>
+          )}
         </div>
       </section>
     )
