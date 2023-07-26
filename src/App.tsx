@@ -16,7 +16,6 @@ const App: React.FC = () => {
     <AnimatePresence mode="wait">
       {currentScreen === 'welcome' && <WelcomeScreen onStart={handleStart} />}
       {currentScreen === 'panini' && <PaniniCreator/>}
-
     </AnimatePresence>
   );
 };

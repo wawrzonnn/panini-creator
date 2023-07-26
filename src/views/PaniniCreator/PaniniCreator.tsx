@@ -20,16 +20,16 @@ const PaniniCreator = () => {
 
 	return (
 		<>
-			<div className={styles.container}>
+			{/* <div className=> */}
 				<motion.div
-					className='panini-creator'
+					className={styles.container}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 2 }}>
 					<ConfigureBase />
 				</motion.div>
-			</div>
+			{/* </div> */}
 		</>
 	)
 }
