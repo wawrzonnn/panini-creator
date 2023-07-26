@@ -1,51 +1,51 @@
 .label {
-	position: relative;
-	display: inline-block;
-	width: 27px;
-	height: 17px;
+  position: relative;
+  display: inline-block;
+  width: 27px;
+  height: 17px;
 }
 
 .label input {
-	opacity: 0;
-	width: 0;
-	height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: white;
-	-webkit-transition: 0.5s;
-	transition: 0.5s;
-	border-radius: 32px;
-	border: 0.5px solid #000000;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  border-radius: 32px;
+  border: 0.5px solid #000000;
 }
 
 .slider:before {
-	position: absolute;
-	content: '';
-	height: 9px;
-	width: 9px;
-	left: 2px;
-	bottom: 1.5px;
-	background: white;
-	border: 0.5px solid black;
-	-webkit-transition: 0.5s;
-	transition: 0.5s;
-	border-radius: 16px;
+  position: absolute;
+  content: '';
+  height: 9px;
+  width: 9px;
+  left: 2px;
+  bottom: 1.5px;
+  background: white;
+  border: 0.5px solid black;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  border-radius: 16px;
 }
 
 input:checked + .slider:before {
-	-webkit-transform: translateX(20px);
-	-ms-transform: translateX(20px);
-	transform: translateX(20px);
-	height: 9px;
-	width: 9px;
-	left: -8.5px;
-	bottom: 1.5px;
-	background: black;
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+  height: 9px;
+  width: 9px;
+  left: -8.5px;
+  bottom: 1.5px;
+  background: black;
 }

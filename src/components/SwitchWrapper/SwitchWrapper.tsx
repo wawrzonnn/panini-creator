@@ -4,17 +4,17 @@ import { IngredientHeader } from '../IngredientHeader/IngredientHeader'
 import styles from './SwitchWrapper.module.scss'
 
 interface SwitchWrapperProps {
-	title: string | null
-	handleSwitch: () => void
+  title: string | null
+  handleSwitch: () => void
 }
 
-export const SwitchWrapper: React.FC<SwitchWrapperProps> = ({ title, handleSwitch }) => {
-	return (
-		<div className={styles.switch__wrapper}>
-			<IngredientHeader>{title}</IngredientHeader>
-			<Switch onChange={handleSwitch} />
-		</div>
-	)
+export const SwitchWrapper = ({ title, handleSwitch }: SwitchWrapperProps) => {
+  return (
+    <div className={styles.switch__wrapper}>
+      <IngredientHeader>{title}</IngredientHeader>
+      <Switch onChange={handleSwitch} />
+    </div>
+  )
 }
 
 export default SwitchWrapper

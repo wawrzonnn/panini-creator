@@ -1,32 +1,33 @@
 .circle {
-	position: relative;
-	width: 17px;
-	height: 17px;
-	border-radius: 50%;
-	border: 0.5px solid black;
-	color: black;
-	background-color: white;
-	transition: all 0.2s;
-	cursor: pointer;
+  position: relative;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 0.5px solid var(--black);
+  color: var(--black);
+  background-color: var(--white);
+  transition: all 0.2s;
+  cursor: pointer;
 }
 
 .circle:hover {
-	color: white;
-	background-color: black;
+  color: var(--white);
+  background-color: var(--black);
 }
 
 .disabled {
-	opacity: 0.5;
+  opacity: var(--opacity-disabled);
 }
+
 .disabled:hover {
-	color: black;
-	background-color: white;
-	cursor: default;
+  color: var(--black);
+  background-color: var(--white);
+  cursor: default;
 }
 
 .plus {
-	position: absolute;
-	top: -5px;
-	left: 2.8px;
-	font-size: 15px;
+  position: absolute;
+  top: -5px;
+  left: 2.8px;
+  font-size: 15px;
 }

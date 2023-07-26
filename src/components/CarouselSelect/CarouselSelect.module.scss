@@ -1,27 +1,27 @@
 .wrapper {
-	display: flex;
-	width: 250px;
-	max-width: 250px;
-	padding: 1px 0px;
-	justify-content: space-between;
-	align-items: center;
-	color: black;
-	font-family: Oxygen Mono;
-	font-size: 12px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: normal;
+  display: flex;
+  width: 250px;
+  max-width: 250px;
+  padding: 1px 0px;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  font-family: Oxygen Mono;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .wrapper button {
-	border: none;
-	background: none;
-	cursor: pointer;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .wrapper span {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }

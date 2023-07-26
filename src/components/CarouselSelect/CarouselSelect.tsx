@@ -7,46 +7,46 @@ import { ArrowLeft } from '../../assets/icons/ArrowLeft'
 import { ArrowRight } from '../../assets/icons/ArrowRight'
 
 interface CarouselSelectProps {
-	items: string[]
-	onSelect: (selectedItem: string) => void
-	icon?: React.ReactNode
+  items: string[]
+  onSelect: (selectedItem: string) => void
+  icon?: React.ReactNode
 }
 
 export const CarouselSelect = ({ items, onSelect, icon }: CarouselSelectProps) => {
-	const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-	useEffect(() => {
-		onSelect(items[currentIndex])
-	}, [currentIndex, items, onSelect])
+  useEffect(() => {
+    onSelect(items[currentIndex])
+  }, [currentIndex, items, onSelect])
 
-	const handleNext = () => {
-		if (currentIndex < items.length - 1) {
-			setCurrentIndex(currentIndex + 1)
-		} else {
-			setCurrentIndex(0)
-		}
-	}
+  const handleNext = () => {
+    if (currentIndex < items.length - 1) {
+      setCurrentIndex(currentIndex + 1)
+    } else {
+      setCurrentIndex(0)
+    }
+  }
 
-	const handlePrev = () => {
-		if (currentIndex > 0) {
-			setCurrentIndex(currentIndex - 1)
-		} else {
-			setCurrentIndex(items.length - 1)
-		}
-	}
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1)
+    } else {
+      setCurrentIndex(items.length - 1)
+    }
+  }
 
-	return (
-		<div className={styles.wrapper}>
-			<button type='button' onClick={handlePrev}>
-				<ArrowLeft />
-			</button>
-			<span>
-				{icon}
-				{items[currentIndex]}
-			</span>
-			<button type='button' onClick={handleNext}>
-				<ArrowRight />
-			</button>
-		</div>
-	)
+  return (
+    <div className={styles.wrapper}>
+      <button type="button" onClick={handlePrev}>
+        <ArrowLeft />
+      </button>
+      <span>
+        {icon}
+        {items[currentIndex]}
+      </span>
+      <button type="button" onClick={handleNext}>
+        <ArrowRight />
+      </button>
+    </div>
+  )
 }

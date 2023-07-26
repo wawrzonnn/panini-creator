@@ -5,9 +5,9 @@ import './index.scss'
 import { Container } from './container/Container'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<React.StrictMode>
-		<Container>
-			<App />
-		</Container>
-	</React.StrictMode>
+  <React.StrictMode>
+    <Container>
+      <App />
+    </Container>
+  </React.StrictMode>
 )
