@@ -6,7 +6,16 @@ import classNames from 'classnames'
 const cx = classNames.bind(styles)
 
 import { fadeLeft, fadeRight, fadeDown, fadeUp } from '../../animations/welcomeScreenAnimations'
-
+const animationMap = [
+  { class: styles.circle__up, variant: fadeUp },
+  { class: styles.circle__left, variant: fadeLeft },
+  { class: styles.circle__leftinner, variant: fadeLeft },
+  { class: styles.halfCircle__left, variant: fadeLeft },
+  { class: styles.halfCircle__right, variant: fadeRight },
+  { class: styles.circle__rightinner, variant: fadeRight },
+  { class: styles.circle__right, variant: fadeRight },
+  { class: styles.circle__down, variant: fadeDown },
+]
 const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
   const [startAnimation, setStartAnimation] = useState(false)
 
@@ -18,16 +27,7 @@ const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
     [styles.header]: true,
     [styles.hidden__border]: startAnimation,
   })
-  const animationMap = [
-    { class: styles.circle__up, variant: fadeUp },
-    { class: styles.circle__left, variant: fadeLeft },
-    { class: styles.circle__leftinner, variant: fadeLeft },
-    { class: styles.halfCircle__left, variant: fadeLeft },
-    { class: styles.halfCircle__right, variant: fadeRight },
-    { class: styles.circle__rightinner, variant: fadeRight },
-    { class: styles.circle__right, variant: fadeRight },
-    { class: styles.circle__down, variant: fadeDown },
-  ]
+
   return (
     <div className={styles.container}>
       {animationMap.map((item, index) => (

@@ -7,23 +7,28 @@ import { Dices } from '../../assets/icons/Dices'
 import { Grain } from '../../assets/icons/Grain'
 import { Wheat } from '../../assets/icons/Wheat'
 import { Remove } from '../../assets/icons/Remove/Remove'
+
 import { CarouselSelect } from '../CarouselSelect/CarouselSelect'
 import { DropdownSelect } from '../DropdownSelect/DropdownSelect'
 import { ButtonSelect } from '../ButtonSelect/ButtonSelect'
 import { IngredientHeader } from '../IngredientHeader/IngredientHeader'
+
 import { breadVariants } from '../../data/bread'
 import { cheeseVariants } from '../../data/cheese'
 import { meatVariants } from '../../data/meat'
 import { dressingVariants } from '../../data/dressing'
 import { vegetableVariant } from '../../data/vegetable'
+
 import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
 import { DropdownWrapper } from '../DropdownWrapper/DropdownWrapper'
 import { CarouselWrapper } from '../CarouselWrapper/CarouselWrapper'
 
-type IngredientType = 'Cheese' | 'Meat' | 'Dressing'
+import { formatToTitleCase } from '../../utils/formatToTitleCase'
+
+type IngredientType = 'cheese' | 'meat' | 'dressing'
 type ExtraIngredientState = Record<IngredientType, any[]>
 type HiddenIngredientState = Record<IngredientType, Record<number, boolean>>
-type HiddenSection = 'Cheese' | 'Meat' | 'Dressing' | null
+type HiddenSection = 'cheese' | 'meat' | 'dressing' | null
 
 const ConfigureBase = () => {
   const [selectedBread, setSelectedBread] = useState(breadVariants[0])
@@ -35,19 +40,19 @@ const ConfigureBase = () => {
   const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
 
   const [addDisabled, setAddDisabled] = useState<Record<IngredientType, boolean>>({
-    Cheese: false,
-    Meat: false,
-    Dressing: false,
+    cheese: false,
+    meat: false,
+    dressing: false,
   })
   const [extraIngredients, setExtraIngredients] = useState<ExtraIngredientState>({
-    Cheese: [],
-    Meat: [],
-    Dressing: [],
+    cheese: [],
+    meat: [],
+    dressing: [],
   })
   const [extraIngredientHidden, setExtraIngredientHidden] = useState<HiddenIngredientState>({
-    Cheese: {},
-    Meat: {},
-    Dressing: {},
+    cheese: {},
+    meat: {},
+    dressing: {},
   })
   const addExtraIngredient = (ingredientType: IngredientType) => {
     setExtraIngredients((prevIngredients) => ({
@@ -72,10 +77,11 @@ const ConfigureBase = () => {
 
   const handleButtonClick = (item: string) => {
     setSelectedVegetables((prevState) => {
-      if (prevState.includes(item)) {
-        return prevState.filter((i) => i !== item)
+      const formattedItem = formatToTitleCase(item)
+      if (prevState.includes(formattedItem)) {
+        return prevState.filter((i) => i !== formattedItem)
       }
-      return [...prevState, item]
+      return [...prevState, formattedItem]
     })
   }
 
@@ -88,7 +94,7 @@ const ConfigureBase = () => {
   ) => {
     return (
       <section className={styles.ingredients_container}>
-        <SwitchWrapper title={section} handleSwitch={() => handleSwitch(section as HiddenSection)} />
+        <SwitchWrapper title={formatToTitleCase(section)} handleSwitch={() => handleSwitch(section as HiddenSection)} />
         <div className={styles.ingredients_columns}>
           <WrapperIngredient
             items={variants}
@@ -129,16 +135,16 @@ const ConfigureBase = () => {
           <CarouselSelect items={breadVariants} onSelect={setSelectedBread} icon={breadIcon} />
         </div>
 
-        {renderSection('Cheese', cheeseVariants, setSelectedCheese, DropdownWrapper, DropdownSelect)}
-        {renderSection('Meat', meatVariants, setSelectedMeat, DropdownWrapper, DropdownSelect)}
-        {renderSection('Dressing', dressingVariants, setSelectedDressing, CarouselWrapper, CarouselSelect)}
+        {renderSection('cheese', cheeseVariants, setSelectedCheese, DropdownWrapper, DropdownSelect)}
+        {renderSection('meat', meatVariants, setSelectedMeat, DropdownWrapper, DropdownSelect)}
+        {renderSection('dressing', dressingVariants, setSelectedDressing, CarouselWrapper, CarouselSelect)}
         <section className={styles.ingredients_container}>
           <IngredientHeader>Bread</IngredientHeader>
           <div className={styles.vegetables_wrapper}>
             {vegetableVariant.map((veggie, index) => (
               <ButtonSelect
                 key={index}
-                item={veggie}
+                item={formatToTitleCase(veggie)}
                 onClick={handleButtonClick}
                 selected={selectedVegetables.includes(veggie)}
               />
