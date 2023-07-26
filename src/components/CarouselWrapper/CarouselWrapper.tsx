@@ -1,18 +1,19 @@
 import React from 'react'
 import { CarouselSelect } from '../CarouselSelect/CarouselSelect'
-import { Add } from '../Add/Add'
+import { Add } from '../../assets/icons/Add/Add'
 import styles from './CarouselWrapper.module.scss'
 
 interface CarouselWrapperProps {
 	items: string[]
-	addExtraComponent: () => void
+	addExtraIngredient: () => void
 	onSelect: (selectedItem: string) => void
+	disabled: boolean
 }
 
-export const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ items, addExtraComponent, onSelect }) => {
+export const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ items, addExtraIngredient, onSelect, disabled }) => {
 	return (
 		<div className={styles.carousel__wrapper}>
-			<Add onClick={addExtraComponent} />
+			<Add onClick={addExtraIngredient} disabled={disabled} />
 			<CarouselSelect items={items} onSelect={onSelect} />
 		</div>
 	)

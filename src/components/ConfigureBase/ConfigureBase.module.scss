@@ -59,7 +59,7 @@
 	padding: 20px 0;
 }
 
-.extra__ingredients_container{
+.ingredients_container{
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
@@ -67,27 +67,11 @@
 	padding: 20px 0;
 }
 
-.title__switch_wrapper {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	margin-top: 5px;
-	justify-content: space-between;
-	margin-right: 5px;
-}
-
-.extra__ingredients_columns {
+.ingredients_columns {
 	display: flex;
 	flex-direction: column;
 }
 
-.add__more_wrapper {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	align-items: center;
-	gap: 50px;	
-}
 .add__more_margin {
 	display: flex;
 	justify-content: space-between;
@@ -96,8 +80,6 @@
 	gap: 50px;
 	margin-top: 10px;
 }
-
-
 
 .hidden {
     display: none;
