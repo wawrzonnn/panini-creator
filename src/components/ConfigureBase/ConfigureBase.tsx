@@ -56,18 +56,41 @@ const ConfigureBase = () => {
     dressing: {},
   })
 
+  const handleSelect = (selectedItem: string, index: number, ingredientType: IngredientType) => {
+    setExtraIngredients((prevIngredients) => {
+      let newIngredients = { ...prevIngredients }
+      newIngredients[ingredientType][index] = selectedItem
+      return newIngredients
+    })
+  }
+
   const addExtraIngredient = (ingredientType: IngredientType) => {
     setExtraIngredients((prevIngredients) => ({
       ...prevIngredients,
-      [ingredientType]: [...prevIngredients[ingredientType], {}],
+      [ingredientType]: [
+        ...prevIngredients[ingredientType],
+        ingredientType === 'cheese'
+          ? cheeseVariants[0]
+          : ingredientType === 'meat'
+          ? meatVariants[0]
+          : dressingVariants[0],
+      ],
     }))
   }
 
-  const hideExtraIngredient = (ingredientType: IngredientType, index: number) => {
-    setExtraIngredientHidden((prevHidden) => ({
-      ...prevHidden,
-      [ingredientType]: { ...prevHidden[ingredientType], [index]: true },
-    }))
+  const removeExtraIngredient = (ingredientType: IngredientType, index: number) => {
+    setExtraIngredients((prevIngredients) => {
+      let newIngredients = { ...prevIngredients }
+      newIngredients[ingredientType] = newIngredients[ingredientType].filter((_, i) => i !== index)
+      return newIngredients
+    })
+    setExtraIngredientHidden((prevHidden) => {
+      let newHidden = { ...prevHidden }
+      newHidden[ingredientType] = Object.fromEntries(
+        Object.entries(newHidden[ingredientType]).filter(([key]) => Number(key) !== index)
+      )
+      return newHidden
+    })
   }
 
   const handleSwitch = (section: IngredientType) => {
@@ -86,7 +109,7 @@ const ConfigureBase = () => {
       return [...prevState, formattedItem]
     })
   }
-
+  console.log(extraIngredients)
   const renderSection = (
     section: IngredientType,
     variants: string[],
@@ -110,8 +133,11 @@ const ConfigureBase = () => {
                 const ingredientClasses = `${styles.add_more} ${hidden ? styles.hidden : ''}`
                 return (
                   <div key={index} className={ingredientClasses}>
-                    <Remove onClick={() => hideExtraIngredient(section, index)} />
-                    <SelectionIngredient items={variants} onSelect={onSelect} />
+                    <Remove onClick={() => removeExtraIngredient(section, index)} />
+                    <SelectionIngredient
+                      items={variants}
+                      onSelect={(selection: string) => handleSelect(selection, index, section)}
+                    />
                   </div>
                 )
               })}

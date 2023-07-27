@@ -15,23 +15,23 @@ interface CarouselSelectProps {
 export const CarouselSelect = ({ items, onSelect, icon }: CarouselSelectProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  useEffect(() => {
-    onSelect(items[currentIndex])
-  }, [currentIndex, items, onSelect])
-
   const handleNext = () => {
     if (currentIndex < items.length - 1) {
       setCurrentIndex(currentIndex + 1)
+      onSelect(items[currentIndex + 1])
     } else {
       setCurrentIndex(0)
+      onSelect(items[0])
     }
   }
 
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1)
+      onSelect(items[currentIndex - 1])
     } else {
       setCurrentIndex(items.length - 1)
+      onSelect(items[items.length - 1])
     }
   }
 
