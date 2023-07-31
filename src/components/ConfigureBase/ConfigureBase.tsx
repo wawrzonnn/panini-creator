@@ -26,7 +26,7 @@ import { CarouselWrapper } from '../CarouselWrapper/CarouselWrapper'
 import { formatToTitleCase } from '../../utils/formatToTitleCase'
 
 type IngredientType = 'cheese' | 'meat' | 'dressing'
-type ExtraIngredientState = Record<IngredientType, any[]>
+type ExtraIngredientState = Record<IngredientType, { id: number; value: any }[]>
 type HiddenIngredientState = Record<IngredientType, Record<number, boolean>>
 type HiddenSectionState = Record<IngredientType, boolean>
 
@@ -56,10 +56,12 @@ const ConfigureBase = () => {
     dressing: {},
   })
 
-  const handleSelect = (selectedItem: string, index: number, ingredientType: IngredientType) => {
+  const handleSelect = (selectedItem: string, id: number, ingredientType: IngredientType) => {
     setExtraIngredients((prevIngredients) => {
       let newIngredients = { ...prevIngredients }
-      newIngredients[ingredientType][index] = selectedItem
+      newIngredients[ingredientType] = newIngredients[ingredientType].map((ingredient) =>
+        ingredient.id === id ? { ...ingredient, value: selectedItem } : ingredient
+      )
       return newIngredients
     })
   }
@@ -69,25 +71,29 @@ const ConfigureBase = () => {
       ...prevIngredients,
       [ingredientType]: [
         ...prevIngredients[ingredientType],
-        ingredientType === 'cheese'
-          ? cheeseVariants[0]
-          : ingredientType === 'meat'
-          ? meatVariants[0]
-          : dressingVariants[0],
+        {
+          id: Date.now(),
+          value:
+            ingredientType === 'cheese'
+              ? cheeseVariants[0]
+              : ingredientType === 'meat'
+              ? meatVariants[0]
+              : dressingVariants[0],
+        },
       ],
     }))
   }
 
-  const removeExtraIngredient = (ingredientType: IngredientType, index: number) => {
+  const removeExtraIngredient = (ingredientType: IngredientType, id: number) => {
     setExtraIngredients((prevIngredients) => {
       let newIngredients = { ...prevIngredients }
-      newIngredients[ingredientType] = newIngredients[ingredientType].filter((_, i) => i !== index)
+      newIngredients[ingredientType] = newIngredients[ingredientType].filter((ingredient) => ingredient.id !== id)
       return newIngredients
     })
     setExtraIngredientHidden((prevHidden) => {
       let newHidden = { ...prevHidden }
       newHidden[ingredientType] = Object.fromEntries(
-        Object.entries(newHidden[ingredientType]).filter(([key]) => Number(key) !== index)
+        Object.entries(newHidden[ingredientType]).filter(([key]) => Number(key) !== id)
       )
       return newHidden
     })
@@ -109,6 +115,7 @@ const ConfigureBase = () => {
       return [...prevState, formattedItem]
     })
   }
+
   console.log(extraIngredients)
   const renderSection = (
     section: IngredientType,
@@ -128,15 +135,15 @@ const ConfigureBase = () => {
                 addExtraIngredient={() => addExtraIngredient(section)}
                 onSelect={onSelect}
               />
-              {extraIngredients[section].map((_, index) => {
-                const hidden = extraIngredientHidden[section][index]
+              {extraIngredients[section].map((ingredient) => {
+                const hidden = extraIngredientHidden[section][ingredient.id]
                 const ingredientClasses = `${styles.add_more} ${hidden ? styles.hidden : ''}`
                 return (
-                  <div key={index} className={ingredientClasses}>
-                    <Remove onClick={() => removeExtraIngredient(section, index)} />
+                  <div key={ingredient.id} className={ingredientClasses}>
+                    <Remove onClick={() => removeExtraIngredient(section, ingredient.id)} />
                     <SelectionIngredient
                       items={variants}
-                      onSelect={(selection: string) => handleSelect(selection, index, section)}
+                      onSelect={(selection: string) => handleSelect(selection, ingredient.id, section)}
                     />
                   </div>
                 )

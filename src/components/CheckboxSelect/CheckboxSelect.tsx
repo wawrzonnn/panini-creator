@@ -1,15 +1,16 @@
 import * as React from 'react'
 import { PropsWithChildren, useEffect, useState } from 'react'
 
-import styles from './Switch.module.scss'
+import styles from './CheckboxSelect.module.scss'
 
-export interface SwitchProps {
+export interface CheckboxSelectProps {
   checked?: boolean
   onChange(e: React.ChangeEvent<HTMLInputElement>): void
   id?: string
+  label: string
 }
 
-export const Switch = ({ checked = true, id, onChange }: PropsWithChildren<SwitchProps>) => {
+export const CheckboxSelect = ({ checked = true, id, onChange, label }: PropsWithChildren<CheckboxSelectProps>) => {
   const [isChecked, setIsChecked] = useState(checked)
 
   useEffect(() => {
@@ -17,9 +18,19 @@ export const Switch = ({ checked = true, id, onChange }: PropsWithChildren<Switc
   }, [checked])
 
   return (
-    <label className={styles.label}>
+    <div className={styles.wrapper}>
+      <label
+        htmlFor={id}
+        className={styles.label}
+        onClick={(e) => {
+          setIsChecked(!isChecked)
+        }}
+      >
+        {label}
+      </label>
       <input
         type="checkbox"
+        className={styles.checkbox}
         checked={isChecked}
         onChange={(e) => {
           setIsChecked(!isChecked)
@@ -27,7 +38,6 @@ export const Switch = ({ checked = true, id, onChange }: PropsWithChildren<Switc
         }}
         id={id}
       />
-      <span className={styles.slider} />
-    </label>
+    </div>
   )
 }

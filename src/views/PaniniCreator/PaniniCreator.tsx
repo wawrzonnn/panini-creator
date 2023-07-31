@@ -6,6 +6,7 @@ import classNames from 'classnames'
 const cx = classNames.bind(styles)
 
 import ConfigureBase from '../../components/ConfigureBase/ConfigureBase'
+import ConfigureExtras from '../../components/ConfigureExtras/ConfigureExtras'
 
 const PaniniCreator = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -28,6 +29,7 @@ const PaniniCreator = () => {
         transition={{ duration: 2 }}
       >
         <ConfigureBase />
+        <ConfigureExtras />
       </motion.div>
     </>
   )
