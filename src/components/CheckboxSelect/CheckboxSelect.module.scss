@@ -1,0 +1,36 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.checkbox {
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border: 0.5px solid black;
+  background: white;
+  cursor: pointer;
+
+  &:checked:after {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    background: black;
+    margin: 4px;
+  }
+}
+
+.label {
+  min-width: 100px;
+  text-align: left;
+  color: #000;
+  font-family: Oxygen Mono;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}

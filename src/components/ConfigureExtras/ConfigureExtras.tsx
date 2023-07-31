@@ -1,173 +1,145 @@
-// import React, { useState, useE } from 'react'
-// import styles from './ConfigureBase.module.scss'
-// import classNames from 'classnames'
-// const cx = classNames.bind(styles)
+import React, { useState, useCallback } from 'react'
+import styles from './ConfigureExtras.module.scss'
+import classNames from 'classnames'
+const cx = classNames.bind(styles)
 
-// import { Dices } from '../../assets/icons/Dices'
-// import { Grain } from '../../assets/icons/Grain'
-// import { Wheat } from '../../assets/icons/Wheat'
-// import { Remove } from '../../assets/icons/Remove/Remove'
+import { Remove } from '../../assets/icons/Remove/Remove'
+import { IngredientHeader } from '../IngredientHeader/IngredientHeader'
+import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
+import { DropdownWrapper } from '../DropdownWrapper/DropdownWrapper'
+import { DropdownSelect } from '../DropdownSelect/DropdownSelect'
+import { CheckboxSelect } from '../CheckboxSelect/CheckboxSelect'
+import { RadioSelect } from '../RadioSelect/RadioSelect'
+import { eggVariants } from '../../data/egg'
+import { spreadVariant } from '../../data/spread'
+import { servingVariant } from '../../data/serving'
+import { toppingVariant } from '../../data/topping'
 
-// import { CarouselSelect } from '../CarouselSelect/CarouselSelect'
-// import { DropdownSelect } from '../DropdownSelect/DropdownSelect'
-// import { ButtonSelect } from '../ButtonSelect/ButtonSelect'
-// import { IngredientHeader } from '../IngredientHeader/IngredientHeader'
+type ExtraEgg = { id: number; value: string }
 
-// import { breadVariants } from '../../data/bread'
-// import { cheeseVariants } from '../../data/cheese'
-// import { meatVariants } from '../../data/meat'
-// import { dressingVariants } from '../../data/dressing'
-// import { vegetableVariant } from '../../data/vegetable'
+export const ConfigureExtras = () => {
+  const [hiddenEggSection, setHiddenEggSection] = useState(false)
+  const [selectedEgg, setSelectedEgg] = useState(eggVariants[0])
+  const [extraEggs, setExtraEggs] = useState<ExtraEgg[]>([])
+  const [selectedSpreads, setSelectedSpreads] = useState<string[]>([])
+  const [selectedServing, setSelectedServing] = useState<string | null>(null)
+  const [selectedToppings, setSelectedToppings] = useState<string[]>([])
 
-// import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
-// import { DropdownWrapper } from '../DropdownWrapper/DropdownWrapper'
-// import { CarouselWrapper } from '../CarouselWrapper/CarouselWrapper'
+  const handleSelect = useCallback((selectedItem: string, id: number) => {
+    setExtraEggs((prevEggs) => prevEggs.map((egg) => (egg.id === id ? { ...egg, value: selectedItem } : egg)))
+  }, [])
 
-// import { formatToTitleCase } from '../../utils/formatToTitleCase'
+  const addExtraEgg = useCallback(() => {
+    setExtraEggs((prevEggs) => [...prevEggs, { id: Date.now(), value: eggVariants[0] }])
+  }, [])
 
-// type IngredientType = 'cheese' | 'meat' | 'dressing'
-// type ExtraIngredientState = Record<IngredientType, any[]>
-// type HiddenIngredientState = Record<IngredientType, Record<number, boolean>>
-// type HiddenSectionState = Record<IngredientType, boolean>
+  const removeExtraEgg = useCallback((id: number) => {
+    setExtraEggs((prevEggs) => prevEggs.filter((egg) => egg.id !== id))
+  }, [])
 
-// const ConfigureBase = () => {
-//   const [selectedBread, setSelectedBread] = useState(breadVariants[0])
-//   const [selectedCheese, setSelectedCheese] = useState(cheeseVariants[0])
-//   const [selectedMeat, setSelectedMeat] = useState(meatVariants[0])
-//   const [selectedDressing, setSelectedDressing] = useState(dressingVariants[0])
-//   const [selectedVegetables, setSelectedVegetables] = useState<string[]>([])
-//   const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
+  const handleSwitch = useCallback(() => {
+    setHiddenEggSection((prevHidden) => !prevHidden)
+  }, [])
 
-//   const [hiddenSections, setHiddenSections] = useState<HiddenSectionState>({
-//     cheese: false,
-//     meat: false,
-//     dressing: false,
-//   })
+  const handleCheckboxChange = useCallback((spread: string, checked: boolean) => {
+    setSelectedSpreads((prevSpreads) =>
+      checked ? [...prevSpreads, spread] : prevSpreads.filter((item) => item !== spread)
+    )
+  }, [])
 
-//   const [extraIngredients, setExtraIngredients] = useState<ExtraIngredientState>({
-//     cheese: [],
-//     meat: [],
-//     dressing: [],
-//   })
+  const handleRadioChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedServing(e.target.value)
+  }, [])
 
-//   const [extraIngredientHidden, setExtraIngredientHidden] = useState<HiddenIngredientState>({
-//     cheese: {},
-//     meat: {},
-//     dressing: {},
-//   })
+  const handleToppingChange = useCallback((topping: string, checked: boolean) => {
+    setSelectedToppings((prevToppings) =>
+      checked ? [...prevToppings, topping] : prevToppings.filter((item) => item !== topping)
+    )
+  }, [])
 
-//   const addExtraIngredient = (ingredientType: IngredientType) => {
-//     setExtraIngredients((prevIngredients) => ({
-//       ...prevIngredients,
-//       [ingredientType]: [...prevIngredients[ingredientType], {}],
-//     }))
-//   }
+  const getEggWrapperClasses = cx({
+    [styles.ingredients_container]: true,
+    [styles.egg_wrapper]: true,
+  })
 
-//   const hideExtraIngredient = (ingredientType: IngredientType, index: number) => {
-//     setExtraIngredientHidden((prevHidden) => ({
-//       ...prevHidden,
-//       [ingredientType]: { ...prevHidden[ingredientType], [index]: true },
-//     }))
-//   }
+  const getCenterWrapperClasses = cx({
+    [styles.ingredients_container]: true,
+    [styles.ingredients_container_center]: true,
+  })
 
-//   const handleSwitch = (section: IngredientType) => {
-//     setHiddenSections((prevSections) => ({
-//       ...prevSections,
-//       [section]: !prevSections[section],
-//     }))
-//   }
+  return (
+    <form className={styles.extras_container}>
+      <main className={styles.form_container}>
+        <span className={styles.form_title}>CONFIGURE EXTRAS</span>
+        <section className={getEggWrapperClasses}>
+          <SwitchWrapper title={'Egg'} handleSwitch={handleSwitch} />
+          <div className={styles.ingredients_columns}>
+            {!hiddenEggSection && (
+              <>
+                <DropdownWrapper
+                  items={eggVariants}
+                  addExtraIngredient={addExtraEgg}
+                  onSelect={setSelectedEgg}
+                  disabled={false}
+                />
+                {extraEggs.map((egg) => (
+                  <div key={egg.id} className={styles.add_more}>
+                    <Remove onClick={() => removeExtraEgg(egg.id)} />
+                    <DropdownSelect
+                      items={eggVariants}
+                      onSelect={(selection: string) => handleSelect(selection, egg.id)}
+                    />
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+        </section>
+        <section className={styles.ingredients_container}>
+          <IngredientHeader>Spreads</IngredientHeader>
+          <div className={styles.spreads_columns}>
+            {spreadVariant.map((spread) => (
+              <CheckboxSelect
+                key={spread}
+                onChange={(e) => handleCheckboxChange(spread, e.target.checked)}
+                checked={selectedSpreads.includes(spread)}
+                label={spread.toUpperCase()}
+              />
+            ))}
+          </div>
+        </section>
+        <section className={getCenterWrapperClasses}>
+          <IngredientHeader>Servings</IngredientHeader>
+          <div className={styles.serving_row}>
+            {servingVariant.map((serving, index) => (
+              <RadioSelect
+                key={index}
+                onChange={handleRadioChange}
+                name="serving"
+                id={`serving-${index}`}
+                value={serving}
+                checked={selectedServing === serving}
+                label={serving.toUpperCase()}
+              />
+            ))}
+          </div>
+        </section>
+        <section className={getCenterWrapperClasses}>
+          <IngredientHeader>Toppings</IngredientHeader>
+          <div className={styles.toppings_columns}>
+            {toppingVariant.map((topping) => (
+              <CheckboxSelect
+                key={topping}
+                onChange={(e) => handleToppingChange(topping, e.target.checked)}
+                checked={selectedToppings.includes(topping)}
+                label={topping.toUpperCase()}
+              />
+            ))}
+          </div>
+        </section>
+      </main>
+    </form>
+  )
+}
 
-//   const handleButtonClick = (item: string) => {
-//     setSelectedVegetables((prevState) => {
-//       const formattedItem = formatToTitleCase(item)
-//       if (prevState.includes(formattedItem)) {
-//         return prevState.filter((i) => i !== formattedItem)
-//       }
-//       return [...prevState, formattedItem]
-//     })
-//   }
-
-//   const renderSection = (
-//     section: IngredientType,
-//     variants: string[],
-//     onSelect: (selection: string) => void,
-//     WrapperIngredient: React.ElementType,
-//     SelectionIngredient: React.ElementType
-//   ) => {
-//     return (
-//       <section className={styles.ingredients_container}>
-//         <SwitchWrapper title={formatToTitleCase(section)} handleSwitch={() => handleSwitch(section)} />
-//         <div className={styles.ingredients_columns}>
-//           {!hiddenSections[section] && (
-//             <>
-//               <WrapperIngredient
-//                 items={variants}
-//                 addExtraIngredient={() => addExtraIngredient(section)}
-//                 onSelect={onSelect}
-//               />
-//               {extraIngredients[section].map((_, index) => {
-//                 const hidden = extraIngredientHidden[section][index]
-//                 const ingredientClasses = `${styles.add_more} ${hidden ? styles.hidden : ''}`
-//                 return (
-//                   <div key={index} className={ingredientClasses}>
-//                     <Remove onClick={() => hideExtraIngredient(section, index)} />
-//                     <SelectionIngredient items={variants} onSelect={onSelect} />
-//                   </div>
-//                 )
-//               })}
-//             </>
-//           )}
-//         </div>
-//       </section>
-//     )
-//   }
-//   useEffect(() => {
-//     console.log('selectedBread:', selectedBread)
-//     console.log('selectedCheese:', selectedCheese)
-//     console.log('selectedMeat:', selectedMeat)
-//     console.log('selectedDressing:', selectedDressing)
-//     console.log('selectedVegetables:', selectedVegetables)
-//     console.log('hiddenSections:', hiddenSections)
-//     console.log('extraIngredients:', extraIngredients)
-//     console.log('extraIngredientHidden:', extraIngredientHidden)
-//   }, [selectedBread, selectedCheese, selectedMeat, selectedDressing, selectedVegetables, hiddenSections, extraIngredients, extraIngredientHidden])
-
-//   return (
-//     <form>
-//       <div className={styles.header}>
-//         <span className={styles.header_title}>Panini Creator</span>
-//         <button className={styles.header_button}>
-//           <Dices />
-//           RANDOMIZE PANINI
-//         </button>
-//       </div>
-
-//       <main className={styles.form_container}>
-//         <span className={styles.form_title}>CONFIGURE BASE</span>
-//         <div className={styles.bread_wrapper}>
-//           <IngredientHeader>Bread</IngredientHeader>
-//           <CarouselSelect items={breadVariants} onSelect={setSelectedBread} icon={breadIcon} />
-//         </div>
-
-//         {renderSection('cheese', cheeseVariants, setSelectedCheese, DropdownWrapper, DropdownSelect)}
-//         {renderSection('meat', meatVariants, setSelectedMeat, DropdownWrapper, DropdownSelect)}
-//         {renderSection('dressing', dressingVariants, setSelectedDressing, CarouselWrapper, CarouselSelect)}
-//         <section className={styles.ingredients_container}>
-//           <IngredientHeader>Bread</IngredientHeader>
-//           <div className={styles.vegetables_wrapper}>
-//             {vegetableVariant.map((veggie, index) => (
-//               <ButtonSelect
-//                 key={index}
-//                 item={formatToTitleCase(veggie)}
-//                 onClick={handleButtonClick}
-//                 selected={selectedVegetables.includes(formatToTitleCase(veggie))}
-//               />
-//             ))}
-//           </div>
-//         </section>
-//       </main>
-//     </form>
-//   )
-// }
-
-// export default ConfigureBase
+export default ConfigureExtras
