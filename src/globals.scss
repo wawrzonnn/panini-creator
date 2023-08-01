@@ -30,12 +30,27 @@
 }
 
 .ingredients_container_center {
+  min-height: 77px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.5px solid black;
+  padding: 20px 0;
   align-items: center;
 }
 
 .ingredients_columns {
   display: flex;
   flex-direction: column;
+}
+
+.first_ingredient_wrapper {
+  min-height: 77px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid black;
+  border-top: 0.5px solid black;
+  padding: 20px 0;
 }
 
 .add_more {

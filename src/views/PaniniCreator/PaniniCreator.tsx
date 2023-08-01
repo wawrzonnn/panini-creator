@@ -7,6 +7,7 @@ const cx = classNames.bind(styles)
 
 import ConfigureBase from '../../form/ConfigureBase/ConfigureBase'
 import ConfigureExtras from '../../form/ConfigureExtras/ConfigureExtras'
+import FinalizeOrder from '../../form/FinalizeOrder/FinalizeOrder'
 
 const PaniniCreator = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -30,6 +31,7 @@ const PaniniCreator = () => {
       >
         <ConfigureBase />
         <ConfigureExtras />
+        <FinalizeOrder />
       </motion.div>
     </>
   )
