@@ -20,17 +20,16 @@ import { dressingVariants } from '../../data/dressing'
 import { vegetableVariant } from '../../data/vegetable'
 
 import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
-import { DropdownWrapper } from '../DropdownWrapper/DropdownWrapper'
-import { CarouselWrapper } from '../CarouselWrapper/CarouselWrapper'
+import { WrapperComponent, WrapperType } from '../WrapperComponent/WrapperComponent'
 
 import { formatToTitleCase } from '../../utils/formatToTitleCase'
 
 type IngredientType = 'cheese' | 'meat' | 'dressing'
 type ExtraIngredientState = Record<IngredientType, { id: number; value: any }[]>
-type HiddenIngredientState = Record<IngredientType, Record<number, boolean>>
 type HiddenSectionState = Record<IngredientType, boolean>
 
 const ConfigureBase = () => {
+  // base ingredients state
   const [selectedBread, setSelectedBread] = useState(breadVariants[0])
   const [selectedCheese, setSelectedCheese] = useState(cheeseVariants[0])
   const [selectedMeat, setSelectedMeat] = useState(meatVariants[0])
@@ -38,24 +37,20 @@ const ConfigureBase = () => {
   const [selectedVegetables, setSelectedVegetables] = useState<string[]>([])
   const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
 
+  //extra ingredients state
+  const [extraIngredients, setExtraIngredients] = useState<ExtraIngredientState>({
+    cheese: [],
+    meat: [],
+    dressing: [],
+  })
+  //hide section using Switch (checked / !checked)
   const [hiddenSections, setHiddenSections] = useState<HiddenSectionState>({
     cheese: false,
     meat: false,
     dressing: false,
   })
 
-  const [extraIngredients, setExtraIngredients] = useState<ExtraIngredientState>({
-    cheese: [],
-    meat: [],
-    dressing: [],
-  })
-
-  const [extraIngredientHidden, setExtraIngredientHidden] = useState<HiddenIngredientState>({
-    cheese: {},
-    meat: {},
-    dressing: {},
-  })
-
+  //handle the selection of extra ingredients
   const handleSelect = (selectedItem: string, id: number, ingredientType: IngredientType) => {
     setExtraIngredients((prevIngredients) => {
       let newIngredients = { ...prevIngredients }
@@ -65,7 +60,7 @@ const ConfigureBase = () => {
       return newIngredients
     })
   }
-
+  // add extra ingredients of a specific type (cheese | meat | dressing)
   const addExtraIngredient = (ingredientType: IngredientType) => {
     setExtraIngredients((prevIngredients) => ({
       ...prevIngredients,
@@ -90,22 +85,15 @@ const ConfigureBase = () => {
       newIngredients[ingredientType] = newIngredients[ingredientType].filter((ingredient) => ingredient.id !== id)
       return newIngredients
     })
-    setExtraIngredientHidden((prevHidden) => {
-      let newHidden = { ...prevHidden }
-      newHidden[ingredientType] = Object.fromEntries(
-        Object.entries(newHidden[ingredientType]).filter(([key]) => Number(key) !== id)
-      )
-      return newHidden
-    })
   }
-
+  //toggle the visibility of an ingredient section
   const handleSwitch = (section: IngredientType) => {
     setHiddenSections((prevSections) => ({
       ...prevSections,
       [section]: !prevSections[section],
     }))
   }
-
+  //handle the selection of vegetables
   const handleButtonClick = (item: string) => {
     setSelectedVegetables((prevState) => {
       const formattedItem = formatToTitleCase(item)
@@ -116,13 +104,11 @@ const ConfigureBase = () => {
     })
   }
 
-  console.log(extraIngredients)
   const renderSection = (
-    section: IngredientType,
-    variants: string[],
-    onSelect: (selection: string) => void,
-    WrapperIngredient: React.ElementType,
-    SelectionIngredient: React.ElementType
+    section: IngredientType, // choose extra ingredient type ( cheese | meat | dressing)
+    variants: string[], // choose variants/items from database
+    onSelect: (selection: string) => void, // choose state to update (extra ingredients ( cheese | meat | dressing))
+    type: WrapperType // choose 'dropdown' or 'carousel'
   ) => {
     return (
       <section className={styles.ingredients_container}>
@@ -130,21 +116,31 @@ const ConfigureBase = () => {
         <div className={styles.ingredients_columns}>
           {!hiddenSections[section] && (
             <>
-              <WrapperIngredient
+              <WrapperComponent
                 items={variants}
                 addExtraIngredient={() => addExtraIngredient(section)}
                 onSelect={onSelect}
+                type={type}
               />
               {extraIngredients[section].map((ingredient) => {
-                const hidden = extraIngredientHidden[section][ingredient.id]
-                const ingredientClasses = `${styles.add_more} ${hidden ? styles.hidden : ''}`
+                const getIngredientClasses = cx({
+                  [styles.add_more]: true,
+                  [styles.separator]: type === 'carousel',
+                })
                 return (
-                  <div key={ingredient.id} className={ingredientClasses}>
+                  <div key={ingredient.id} className={getIngredientClasses}>
                     <Remove onClick={() => removeExtraIngredient(section, ingredient.id)} />
-                    <SelectionIngredient
-                      items={variants}
-                      onSelect={(selection: string) => handleSelect(selection, ingredient.id, section)}
-                    />
+                    {type === 'dropdown' ? (
+                      <DropdownSelect
+                        items={variants}
+                        onSelect={(selection: string) => handleSelect(selection, ingredient.id, section)}
+                      />
+                    ) : (
+                      <CarouselSelect
+                        items={variants}
+                        onSelect={(selection: string) => handleSelect(selection, ingredient.id, section)}
+                      />
+                    )}
                   </div>
                 )
               })}
@@ -154,7 +150,6 @@ const ConfigureBase = () => {
       </section>
     )
   }
-
   return (
     <form>
       <div className={styles.header}>
@@ -171,12 +166,11 @@ const ConfigureBase = () => {
           <IngredientHeader>Bread</IngredientHeader>
           <CarouselSelect items={breadVariants} onSelect={setSelectedBread} icon={breadIcon} />
         </div>
-
-        {renderSection('cheese', cheeseVariants, setSelectedCheese, DropdownWrapper, DropdownSelect)}
-        {renderSection('meat', meatVariants, setSelectedMeat, DropdownWrapper, DropdownSelect)}
-        {renderSection('dressing', dressingVariants, setSelectedDressing, CarouselWrapper, CarouselSelect)}
+        {renderSection('cheese', cheeseVariants, setSelectedCheese, 'dropdown')}
+        {renderSection('meat', meatVariants, setSelectedMeat, 'dropdown')}
+        {renderSection('dressing', dressingVariants, setSelectedDressing, 'carousel')}
         <section className={styles.ingredients_container}>
-          <IngredientHeader>Bread</IngredientHeader>
+          <IngredientHeader>Vegetables</IngredientHeader>
           <div className={styles.vegetables_wrapper}>
             {vegetableVariant.map((veggie, index) => (
               <ButtonSelect
