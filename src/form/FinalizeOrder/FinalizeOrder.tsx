@@ -5,7 +5,11 @@ import { IngredientHeader } from '../../components/IngredientHeader/IngredientHe
 import { TextField } from '../../components/TextField/TextField'
 import { CheckboxSelect } from '../../components/CheckboxSelect/CheckboxSelect'
 
-const FinalizeOrder = () => {
+interface FinalizeOrderProps {
+  onPlaceOrder: () => void
+}
+
+const FinalizeOrder = ({ onPlaceOrder }: FinalizeOrderProps) => {
   const [paniniName, setPaniniName] = useState<string>('')
   const [extras, setExtras] = useState<{ cutlery: boolean; napkins: boolean }>({
     cutlery: false,
@@ -23,8 +27,13 @@ const FinalizeOrder = () => {
     }))
   }
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    onPlaceOrder()
+  }
+
   return (
-    <form className={styles.finalize_container}>
+    <form className={styles.finalize_container} onSubmit={handleSubmit}>
       <main className={styles.form_container}>
         <span className={styles.form_title}>FINALIZE ORDER</span>
         <section className={styles.first_ingredient_wrapper}>
@@ -52,7 +61,9 @@ const FinalizeOrder = () => {
           </div>
         </section>
         <section className={styles.buttons_wrapper}>
-          <button className={styles.button_black}>PLACE ORDER</button>
+          <button type="submit" className={styles.button_black}>
+            PLACE ORDER
+          </button>
           <button className={styles.button_white}>START AGAIN</button>
         </section>
       </main>

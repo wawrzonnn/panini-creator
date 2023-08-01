@@ -1,39 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-
+import React, { useState } from 'react'
 import styles from './PaniniCreator.module.scss'
-import classNames from 'classnames'
-const cx = classNames.bind(styles)
+
+import { motion } from 'framer-motion'
 
 import ConfigureBase from '../../form/ConfigureBase/ConfigureBase'
 import ConfigureExtras from '../../form/ConfigureExtras/ConfigureExtras'
 import FinalizeOrder from '../../form/FinalizeOrder/FinalizeOrder'
 
-const PaniniCreator = () => {
-  const [isVisible, setIsVisible] = useState(false)
+interface PaniniCreatorProps {
+  onPlaceOrder: () => void
+}
 
-  useEffect(() => {
-    setTimeout(() => setIsVisible(true), 500)
-  }, [])
-  const getH1Classes = cx({
-    [styles.panini__visible]: isVisible,
-    [styles.panini__hidden]: !isVisible,
-  })
+const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
+  const [isExiting, setIsExiting] = useState(false)
+
+  const handlePlaceOrder = () => {
+    setIsExiting(true)
+    setTimeout(onPlaceOrder, 1000)
+  }
 
   return (
-    <>
-      <motion.div
-        className={styles.container}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 2 }}
-      >
-        <ConfigureBase />
-        <ConfigureExtras />
-        <FinalizeOrder />
-      </motion.div>
-    </>
+    <motion.div
+      className={styles.container}
+      initial={{ opacity: 0 }}
+      animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      <ConfigureBase />
+      <ConfigureExtras />
+      <FinalizeOrder onPlaceOrder={handlePlaceOrder} />
+    </motion.div>
   )
 }
 
