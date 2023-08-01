@@ -65,11 +65,6 @@ export const ConfigureExtras = () => {
     [styles.egg_wrapper]: true,
   })
 
-  const getCenterWrapperClasses = cx({
-    [styles.ingredients_container]: true,
-    [styles.ingredients_container_center]: true,
-  })
-
   return (
     <form className={styles.extras_container}>
       <main className={styles.form_container}>
@@ -111,7 +106,7 @@ export const ConfigureExtras = () => {
             ))}
           </div>
         </section>
-        <section className={getCenterWrapperClasses}>
+        <section className={styles.ingredients_container_center}>
           <IngredientHeader>Servings</IngredientHeader>
           <div className={styles.serving_row}>
             {servingVariant.map((serving, index) => (
@@ -127,7 +122,7 @@ export const ConfigureExtras = () => {
             ))}
           </div>
         </section>
-        <section className={getCenterWrapperClasses}>
+        <section className={styles.ingredients_container_center}>
           <IngredientHeader>Toppings</IngredientHeader>
           <div className={styles.toppings_columns}>
             {toppingVariant.map((topping) => (
