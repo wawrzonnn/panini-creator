@@ -1,15 +1,18 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState } from 'react'
 import styles from './ConfigureExtras.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
 
 import { Remove } from '../../assets/icons/Remove/Remove'
+
 import { IngredientHeader } from '../IngredientHeader/IngredientHeader'
-import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
-import { DropdownWrapper } from '../DropdownWrapper/DropdownWrapper'
 import { DropdownSelect } from '../DropdownSelect/DropdownSelect'
 import { CheckboxSelect } from '../CheckboxSelect/CheckboxSelect'
 import { RadioSelect } from '../RadioSelect/RadioSelect'
+
+import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
+import { WrapperComponent, WrapperType } from '../WrapperComponent/WrapperComponent'
+
 import { eggVariants } from '../../data/egg'
 import { spreadVariant } from '../../data/spread'
 import { servingVariant } from '../../data/serving'
@@ -25,37 +28,37 @@ export const ConfigureExtras = () => {
   const [selectedServing, setSelectedServing] = useState<string | null>(null)
   const [selectedToppings, setSelectedToppings] = useState<string[]>([])
 
-  const handleSelect = useCallback((selectedItem: string, id: number) => {
+  const handleSelect = (selectedItem: string, id: number) => {
     setExtraEggs((prevEggs) => prevEggs.map((egg) => (egg.id === id ? { ...egg, value: selectedItem } : egg)))
-  }, [])
+  }
 
-  const addExtraEgg = useCallback(() => {
+  const addExtraEgg = () => {
     setExtraEggs((prevEggs) => [...prevEggs, { id: Date.now(), value: eggVariants[0] }])
-  }, [])
+  }
 
-  const removeExtraEgg = useCallback((id: number) => {
+  const removeExtraEgg = (id: number) => {
     setExtraEggs((prevEggs) => prevEggs.filter((egg) => egg.id !== id))
-  }, [])
+  }
 
-  const handleSwitch = useCallback(() => {
+  const handleSwitch = () => {
     setHiddenEggSection((prevHidden) => !prevHidden)
-  }, [])
+  }
 
-  const handleCheckboxChange = useCallback((spread: string, checked: boolean) => {
+  const handleCheckboxChange = (spread: string, checked: boolean) => {
     setSelectedSpreads((prevSpreads) =>
       checked ? [...prevSpreads, spread] : prevSpreads.filter((item) => item !== spread)
     )
-  }, [])
+  }
 
-  const handleRadioChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedServing(e.target.value)
-  }, [])
+  }
 
-  const handleToppingChange = useCallback((topping: string, checked: boolean) => {
+  const handleToppingChange = (topping: string, checked: boolean) => {
     setSelectedToppings((prevToppings) =>
       checked ? [...prevToppings, topping] : prevToppings.filter((item) => item !== topping)
     )
-  }, [])
+  }
 
   const getEggWrapperClasses = cx({
     [styles.ingredients_container]: true,
@@ -76,11 +79,11 @@ export const ConfigureExtras = () => {
           <div className={styles.ingredients_columns}>
             {!hiddenEggSection && (
               <>
-                <DropdownWrapper
+                <WrapperComponent
                   items={eggVariants}
                   addExtraIngredient={addExtraEgg}
                   onSelect={setSelectedEgg}
-                  disabled={false}
+                  type={'dropdown'}
                 />
                 {extraEggs.map((egg) => (
                   <div key={egg.id} className={styles.add_more}>

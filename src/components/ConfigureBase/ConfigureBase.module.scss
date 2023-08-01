@@ -70,3 +70,18 @@
   flex-wrap: wrap;
   justify-content: flex-end;
 }
+
+.separator {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    left: 191px;
+    width: 60px;
+    height: 0.5px;
+    background-color: black;
+    transform: translate(-50%, -50%);
+  }
+}
