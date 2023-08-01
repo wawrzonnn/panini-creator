@@ -5,13 +5,13 @@ const cx = classNames.bind(styles)
 
 import { Remove } from '../../assets/icons/Remove/Remove'
 
-import { IngredientHeader } from '../IngredientHeader/IngredientHeader'
-import { DropdownSelect } from '../DropdownSelect/DropdownSelect'
-import { CheckboxSelect } from '../CheckboxSelect/CheckboxSelect'
-import { RadioSelect } from '../RadioSelect/RadioSelect'
+import { IngredientHeader } from '../../components/IngredientHeader/IngredientHeader'
+import { DropdownSelect } from '../../components/DropdownSelect/DropdownSelect'
+import { CheckboxSelect } from '../../components/CheckboxSelect/CheckboxSelect'
+import { RadioSelect } from '../../components/RadioSelect/RadioSelect'
 
-import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
-import { WrapperComponent, WrapperType } from '../WrapperComponent/WrapperComponent'
+import { SwitchWrapper } from '../../components/SwitchWrapper/SwitchWrapper'
+import { WrapperComponent, WrapperType } from '../../components/WrapperComponent/WrapperComponent'
 
 import { eggVariants } from '../../data/egg'
 import { spreadVariant } from '../../data/spread'

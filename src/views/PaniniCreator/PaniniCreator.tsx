@@ -5,8 +5,8 @@ import styles from './PaniniCreator.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
 
-import ConfigureBase from '../../components/ConfigureBase/ConfigureBase'
-import ConfigureExtras from '../../components/ConfigureExtras/ConfigureExtras'
+import ConfigureBase from '../../form/ConfigureBase/ConfigureBase'
+import ConfigureExtras from '../../form/ConfigureExtras/ConfigureExtras'
 
 const PaniniCreator = () => {
   const [isVisible, setIsVisible] = useState(false)
