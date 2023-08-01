@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 
-import styles from './WelcomeScreen.module.scss'
+import styles from './SplashScreen.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
 
+interface SplashScreenProps {
+  onStart: () => void
+  isOrderPlaced: boolean
+}
 import { fadeLeft, fadeRight, fadeDown, fadeUp } from '../../animations/welcomeScreenAnimations'
 const animationMap = [
   { class: styles.circle__up, variant: fadeUp },
@@ -16,7 +20,7 @@ const animationMap = [
   { class: styles.circle__right, variant: fadeRight },
   { class: styles.circle__down, variant: fadeDown },
 ]
-const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
+const SplashScreen = ({ onStart, isOrderPlaced }: SplashScreenProps) => {
   const [startAnimation, setStartAnimation] = useState(false)
 
   const handleClick = () => {
@@ -27,9 +31,19 @@ const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
     [styles.header]: true,
     [styles.hidden__border]: startAnimation,
   })
+  const getButtonClasses = cx({
+    [styles.button]: true,
+    [styles.button_start_again]: isOrderPlaced
+  })
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+    >
       {animationMap.map((item, index) => (
         <motion.div
           key={index}
@@ -43,12 +57,11 @@ const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
         animate={startAnimation ? { opacity: 0, transition: { delay: 1, duration: 3 } } : { opacity: 1 }}
       >
         <motion.span>Panini Creator</motion.span>
-        <motion.button className={styles.button} onClick={handleClick}>
-          BEGIN
+        <motion.button className={getButtonClasses} onClick={handleClick}>
+          {isOrderPlaced ? 'START AGAIN' : 'BEGIN'}
         </motion.button>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }
-
-export default WelcomeScreen
+export default SplashScreen
