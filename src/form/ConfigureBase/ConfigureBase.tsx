@@ -8,10 +8,10 @@ import { Grain } from '../../assets/icons/Grain'
 import { Wheat } from '../../assets/icons/Wheat'
 import { Remove } from '../../assets/icons/Remove/Remove'
 
-import { CarouselSelect } from '../CarouselSelect/CarouselSelect'
-import { DropdownSelect } from '../DropdownSelect/DropdownSelect'
-import { ButtonSelect } from '../ButtonSelect/ButtonSelect'
-import { IngredientHeader } from '../IngredientHeader/IngredientHeader'
+import { CarouselSelect } from '../../components/CarouselSelect/CarouselSelect'
+import { DropdownSelect } from '../../components/DropdownSelect/DropdownSelect'
+import { ButtonSelect } from '../../components/ButtonSelect/ButtonSelect'
+import { IngredientHeader } from '../../components/IngredientHeader/IngredientHeader'
 
 import { breadVariants } from '../../data/bread'
 import { cheeseVariants } from '../../data/cheese'
@@ -19,8 +19,8 @@ import { meatVariants } from '../../data/meat'
 import { dressingVariants } from '../../data/dressing'
 import { vegetableVariant } from '../../data/vegetable'
 
-import { SwitchWrapper } from '../SwitchWrapper/SwitchWrapper'
-import { WrapperComponent, WrapperType } from '../WrapperComponent/WrapperComponent'
+import { SwitchWrapper } from '../../components/SwitchWrapper/SwitchWrapper'
+import { WrapperComponent, WrapperType } from '../../components/WrapperComponent/WrapperComponent'
 
 import { formatToTitleCase } from '../../utils/formatToTitleCase'
 
