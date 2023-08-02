@@ -166,6 +166,14 @@ const ConfigureBase = () => {
           <IngredientHeader>Bread</IngredientHeader>
           <CarouselSelect items={breadVariants} onSelect={setSelectedBread} icon={breadIcon} />
         </div>
+
+
+        <section className={styles.ingredients_container}>
+          dupa
+        </section>
+
+
+
         {renderSection('cheese', cheeseVariants, setSelectedCheese, 'dropdown')}
         {renderSection('meat', meatVariants, setSelectedMeat, 'dropdown')}
         {renderSection('dressing', dressingVariants, setSelectedDressing, 'carousel')}

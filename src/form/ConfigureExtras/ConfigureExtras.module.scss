@@ -20,3 +20,26 @@
   gap: 15px;
   margin-top: 10px;
 }
+
+
+// testy
+
+.switch__wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 5px;
+  gap: 35px;
+}
+
+.switch__wrapper p {
+  width: 50px;
+}
+
+.wrappertest {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  gap: 50px;
+}

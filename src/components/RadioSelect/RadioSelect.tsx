@@ -19,7 +19,7 @@ export const RadioSelect = ({ checked = false, name, id, onChange, value, label 
         type="radio"
         className={styles.radio}
         name={name}
-        value={value} // Dodaj to
+        value={value} 
         checked={checked}
         onChange={onChange}
         id={id}

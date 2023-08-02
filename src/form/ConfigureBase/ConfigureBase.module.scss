@@ -85,3 +85,18 @@
     transform: translate(-50%, -50%);
   }
 }
+
+
+//
+
+.switch__wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 5px;
+  gap: 35px;
+}
+
+.switch__wrapper p {
+  width: 50px;
+}
