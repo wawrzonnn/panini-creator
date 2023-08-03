@@ -38,7 +38,7 @@
   align-items: center;
 }
 
-.ingredients_columns {
+.ingredients_column {
   display: flex;
   flex-direction: column;
 }
@@ -47,19 +47,17 @@
   min-height: 77px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   border-bottom: 0.5px solid black;
   border-top: 0.5px solid black;
-  padding: 20px 0;
+  padding: 20px 0 12px 0;
 }
 
-.add_more {
+.add_more { 
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  align-items: center;
   gap: 50px;
-  margin-top: 10px;
 }
 
 .hidden {

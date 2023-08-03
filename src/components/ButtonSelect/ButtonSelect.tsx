@@ -7,7 +7,7 @@ const cx = classNames.bind(styles)
 interface ButtonSelectProps {
   item: string
   onClick: (item: string) => void
-  selected: boolean
+  selected?: boolean
 }
 
 export const ButtonSelect = ({ item, onClick, selected }: ButtonSelectProps) => {

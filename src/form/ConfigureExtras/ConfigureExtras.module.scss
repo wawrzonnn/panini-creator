@@ -22,24 +22,52 @@
 }
 
 
-// testy
 
-.switch__wrapper {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin-top: 5px;
-  gap: 35px;
-}
-
-.switch__wrapper p {
-  width: 50px;
-}
-
-.wrappertest {
+.testy {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   align-items: center;
+  flex-direction: column;
+  margin-bottom: 10px; /* Możesz dostosować margines, aby dodać odstęp między wierszami */
+
+  &.column {
+    flex-direction: row
+  }
+}
+
+.testy2 {
+  display: flex;
+flex-direction: column;
+}
+
+.extras_title {
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-family: Instrument Serif;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 80px 0 40px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.column {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.testy { 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 50px;
 }
