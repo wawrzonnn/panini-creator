@@ -11,10 +11,13 @@ interface FinalizeOrderProps {
 }
 
 const FinalizeOrder = ({ onPlaceOrder }: FinalizeOrderProps) => {
-  const { control } = useFormContext()
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext()
 
   return (
-    <form className={styles.finalize_container}>
+    <div className={styles.finalize_container}>
       <main className={styles.form_container}>
         <span className={styles.form_title}>FINALIZE ORDER</span>
         <section className={styles.first_ingredient_wrapper}>
@@ -28,12 +31,13 @@ const FinalizeOrder = ({ onPlaceOrder }: FinalizeOrderProps) => {
                 placeholder={'eg. Club Panini'}
                 name="paniniName"
                 onChange={(e) => field.onChange(e.target.value)}
+                error={errors.paniniName ? 'Name is too long. Max 35 characters.' : undefined}
               />
             )}
           />
         </section>
 
-        <ControlledCheckboxSection name="cutlery" label="Cutlery" control={control} /> 
+        <ControlledCheckboxSection name="cutlery" label="Cutlery" control={control} />
         <ControlledCheckboxSection name="napkins" label="Napkins" control={control} />
 
         <section className={styles.buttons_wrapper}>
@@ -41,7 +45,7 @@ const FinalizeOrder = ({ onPlaceOrder }: FinalizeOrderProps) => {
           <button className={styles.button_white}>START AGAIN</button>
         </section>
       </main>
-    </form>
+    </div>
   )
 }
 

@@ -18,7 +18,7 @@ import { toppingVariant } from '../../data/topping'
 export const ConfigureExtras = () => {
   const [hiddenSection, setHiddenSection] = useState<boolean>(false)
 
-  const { control, setValue, handleSubmit, getValues } = useFormContext()
+  const { control, setValue, getValues } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'extras.egg',
@@ -48,7 +48,7 @@ export const ConfigureExtras = () => {
   }
 
   return (
-    <form className={styles.extras_container}>
+    <div className={styles.extras_container}>
       <main className={styles.form_container}>
         <span className={styles.form_title}>CONFIGURE EXTRAS</span>
 
@@ -100,6 +100,7 @@ export const ConfigureExtras = () => {
                 control={control}
                 defaultValue=""
               />
+              
             ))}
           </div>
         </section>
@@ -123,7 +124,7 @@ export const ConfigureExtras = () => {
           </div>
         </section>
       </main>
-    </form>
+    </div>
   )
 }
 export default ConfigureExtras

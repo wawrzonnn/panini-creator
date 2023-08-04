@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styles from './PaniniCreator.module.scss'
 import { useForm, FormProvider } from 'react-hook-form'
 import { motion } from 'framer-motion'
+import { sandwichSchema } from '../../form/zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { FormData } from '../../form/types'
 
@@ -21,6 +23,7 @@ interface PaniniCreatorProps {
 
 const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
   const methods = useForm<FormData>({
+    resolver: zodResolver(sandwichSchema),
     defaultValues: {
       base: {
         bread: breadVariants[0],
@@ -47,9 +50,13 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
     setIsExiting(true)
     setTimeout(onPlaceOrder, 1000)
   }
+  const onSubmit = (data: FormData) => {
+    console.log('Dane formularza:', data)
+  }
 
   return (
     <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <motion.div
           className={styles.container}
           initial={{ opacity: 0 }}
@@ -60,6 +67,7 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
           <ConfigureExtras />
           <FinalizeOrder onPlaceOrder={handlePlaceOrder} />
         </motion.div>
+      </form>
     </FormProvider>
   )
 }
