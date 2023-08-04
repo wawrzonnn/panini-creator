@@ -35,7 +35,7 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
       extras: {
         egg: [eggVariants[0]],
         spreads: [],
-        serving: '',
+        serving: "GRILLED",
         topping: null,
       },
       paniniName: '',
@@ -43,15 +43,20 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
       napkins: true,
     },
   })
-
+  const {
+    formState: { errors },
+  } = methods
   const [isExiting, setIsExiting] = useState(false)
 
-  const handlePlaceOrder = () => {
-    setIsExiting(true)
-    setTimeout(onPlaceOrder, 1000)
-  }
+
   const onSubmit = (data: FormData) => {
-    console.log('Dane formularza:', data)
+    if (Object.keys(errors).length === 0) {
+      console.log('Success, Form Data:', data)
+      setIsExiting(true)
+    setTimeout(onPlaceOrder, 1000)
+    } else {
+      console.log('Error')
+    }
   }
 
   return (
@@ -65,7 +70,7 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
         >
           <ConfigureBase />
           <ConfigureExtras />
-          <FinalizeOrder onPlaceOrder={handlePlaceOrder} />
+          <FinalizeOrder/>
         </motion.div>
       </form>
     </FormProvider>

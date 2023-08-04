@@ -6,11 +6,8 @@ import { IngredientHeader } from '../../components/IngredientHeader/IngredientHe
 import { TextField } from '../../components/TextField/TextField'
 import { ControlledCheckboxSection } from '../shared/ControlledCheckboxSection/ControlledCheckboxSection'
 
-interface FinalizeOrderProps {
-  onPlaceOrder: () => void
-}
 
-const FinalizeOrder = ({ onPlaceOrder }: FinalizeOrderProps) => {
+const FinalizeOrder = () => {
   const {
     control,
     formState: { errors },
@@ -41,7 +38,7 @@ const FinalizeOrder = ({ onPlaceOrder }: FinalizeOrderProps) => {
         <ControlledCheckboxSection name="napkins" label="Napkins" control={control} />
 
         <section className={styles.buttons_wrapper}>
-          <button className={styles.button_black}>PLACE ORDER</button>
+          <button type='submit' className={styles.button_black}>PLACE ORDER</button>
           <button className={styles.button_white}>START AGAIN</button>
         </section>
       </main>
