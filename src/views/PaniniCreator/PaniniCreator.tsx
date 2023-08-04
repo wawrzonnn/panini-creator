@@ -17,11 +17,8 @@ import { meatVariants } from '../../data/meat'
 import { dressingVariants } from '../../data/dressing'
 import { eggVariants } from '../../data/egg'
 
-interface PaniniCreatorProps {
-  onPlaceOrder: () => void
-}
 
-const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
+const PaniniCreator = () => {
   const methods = useForm<FormData>({
     resolver: zodResolver(sandwichSchema),
     defaultValues: {
@@ -51,9 +48,7 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
 
   const onSubmit = (data: FormData) => {
     if (Object.keys(errors).length === 0) {
-      console.log('Success, Form Data:', data)
-      setIsExiting(true)
-    setTimeout(onPlaceOrder, 1000)
+    console.log('success');
     } else {
       console.log('Error')
     }
