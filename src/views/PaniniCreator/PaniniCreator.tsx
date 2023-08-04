@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styles from './PaniniCreator.module.scss'
 import { useForm, FormProvider } from 'react-hook-form'
 import { motion } from 'framer-motion'
+import { sandwichSchema } from '../../form/zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { FormData } from '../../form/types'
 
@@ -21,6 +23,7 @@ interface PaniniCreatorProps {
 
 const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
   const methods = useForm<FormData>({
+    resolver: zodResolver(sandwichSchema),
     defaultValues: {
       base: {
         bread: breadVariants[0],
@@ -32,7 +35,7 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
       extras: {
         egg: [eggVariants[0]],
         spreads: [],
-        serving: '',
+        serving: "GRILLED",
         topping: null,
       },
       paniniName: '',
@@ -40,16 +43,25 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
       napkins: true,
     },
   })
-
+  const {
+    formState: { errors },
+  } = methods
   const [isExiting, setIsExiting] = useState(false)
 
-  const handlePlaceOrder = () => {
-    setIsExiting(true)
+
+  const onSubmit = (data: FormData) => {
+    if (Object.keys(errors).length === 0) {
+      console.log('Success, Form Data:', data)
+      setIsExiting(true)
     setTimeout(onPlaceOrder, 1000)
+    } else {
+      console.log('Error')
+    }
   }
 
   return (
     <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         <motion.div
           className={styles.container}
           initial={{ opacity: 0 }}
@@ -58,8 +70,9 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
         >
           <ConfigureBase />
           <ConfigureExtras />
-          <FinalizeOrder onPlaceOrder={handlePlaceOrder} />
+          <FinalizeOrder/>
         </motion.div>
+      </form>
     </FormProvider>
   )
 }

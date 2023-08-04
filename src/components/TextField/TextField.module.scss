@@ -1,4 +1,11 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .input {
+  position: relative;
   width: 330px;
   height: 36px;
   color: var(--black, #000);
@@ -12,4 +19,14 @@
   border-radius: 0;
   outline: none;
   padding-left: 10px;
+}
+
+.error_message {
+  display: flex;
+  color: var(--black, #000);
+  font-family: Oxygen Mono;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

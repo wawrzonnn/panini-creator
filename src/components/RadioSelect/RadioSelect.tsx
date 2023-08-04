@@ -12,7 +12,7 @@ export interface RadioSelectProps {
   value: string
 }
 
-export const RadioSelect = ({ checked = false, name, id, onChange, value, label }: RadioSelectProps) => {
+export const RadioSelect = ({ checked, name, id, onChange, value, label }: RadioSelectProps) => {
   return (
     <div className={styles.wrapper}>
       <input

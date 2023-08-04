@@ -91,7 +91,7 @@ const ConfigureBase = () => {
   }
 
   return (
-    <form>
+    <>
       <header className={styles.header}>
         <span className={styles.header_title}>Panini Creator</span>
         <button className={styles.header_button}>
@@ -166,7 +166,7 @@ const ConfigureBase = () => {
           </div>
         </section>
       </main>
-    </form>
+    </>
   )
 }
 export default ConfigureBase
