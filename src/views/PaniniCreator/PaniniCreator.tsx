@@ -60,7 +60,6 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
         <ConfigureExtras />
         <FinalizeOrder onPlaceOrder={handlePlaceOrder} />
       </motion.div>
-      <button type="submit">Submit</button>
     </FormProvider>
   )
 }
