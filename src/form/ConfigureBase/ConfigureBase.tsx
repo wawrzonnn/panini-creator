@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from './ConfigureBase.module.scss'
-import { useForm, useFieldArray, FormProvider } from 'react-hook-form'
+import { useFormContext, useFieldArray, FormProvider } from 'react-hook-form'
 
 import { Dices } from '../../assets/icons/Dices'
 import { Grain } from '../../assets/icons/Grain'
@@ -33,32 +33,21 @@ type FormData = {
 }
 
 const ConfigureBase = () => {
-  const methods = useForm<FormData>({
-    defaultValues: {
-      base: {
-        bread: breadVariants[0],
-        cheese: [cheeseVariants[0]],
-        meat: [meatVariants[0]],
-        dressing: [dressingVariants[0]],
-        vegetables: [vegetableVariant[0]],
-      },
-    },
-  })
-  const { control, handleSubmit, getValues, setValue, watch } = methods
+  const { control, setValue, getValues, watch, handleSubmit } = useFormContext()
+
   const useIngredientFieldArray = (ingredientName: string) =>
     useFieldArray({
       control,
       name: `base.${ingredientName}`,
     })
+
   const { fields: cheeseFields, append: appendCheese, remove: removeCheese } = useIngredientFieldArray('cheese')
   const { fields: meatFields, append: appendMeat, remove: removeMeat } = useIngredientFieldArray('meat')
   const { fields: dressingFields, append: appendDressing, remove: removeDressing } = useIngredientFieldArray('dressing')
-  const { fields: vegetablesFields, append: appendVegetables, remove: removeVegetables } = useIngredientFieldArray('vegetables')
 
   const handleAddCheese = () => appendCheese(cheeseVariants[0])
   const handleAddMeat = () => appendMeat(meatVariants[0])
   const handleAddDressing = () => appendDressing(dressingVariants[0])
-  const handleAddVegetables = () => appendVegetables(vegetableVariant[0])
   // CHEESE / MEAT / DRESSING
   const handleSelectCheese = (selectedCheese: string, index: number) => {
     const cheeseArray = [...getValues('base.cheese')] //get the current ingredient array
@@ -75,13 +64,8 @@ const ConfigureBase = () => {
     dressingArray[index] = selectedDressing
     setValue('base.dressing', dressingArray)
   }
-  const handleSelectVegetables = (selectedVegetables: string, index: number) => {
-    const vegetablesArray = [...getValues('base.vegetables')]
-    vegetablesArray[index] = selectedVegetables
-    setValue('base.vegetables', vegetablesArray)
-  }
   //BREAD
-  const selectedBread = watch('base.bread', breadVariants[0])
+  const selectedBread = watch('base.bread', breadVariants[0]) // Icon check <Grain /> / <Wheat />
   const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
 
   const handleBreadSelection = (selectedBread: string) => {
@@ -93,7 +77,7 @@ const ConfigureBase = () => {
   const handleSelectVegetable = (selectedVegetable: string, isChecked: boolean) => {
     let vegetablesArray = [...getValues('base.vegetables')] // Get the current vegetables array
     if (isChecked) {
-      vegetablesArray.push(selectedVegetable)
+      vegetablesArray.push(selectedVegetable) // add veggie
     } else {
       vegetablesArray = vegetablesArray.filter((item) => item !== selectedVegetable) //remove selected vegetable if !checked
     }
@@ -114,92 +98,84 @@ const ConfigureBase = () => {
       [section]: !prevSections[section],
     }))
   }
-  const onSubmit = (data: FormData) => {
-    console.log('Form data:', data)
-  }
+
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.header}>
-          <span className={styles.header_title}>Panini Creator</span>
-          <button className={styles.header_button}>
-            <Dices />
-            RANDOMIZE PANINI
-          </button>
+    <form>
+      <header className={styles.header}>
+        <span className={styles.header_title}>Panini Creator</span>
+        <button className={styles.header_button}>
+          <Dices />
+          RANDOMIZE PANINI
+        </button>
+      </header>
+
+      <main className={styles.form_container}>
+        <span className={styles.form_title}>CONFIGURE BASE</span>
+        <div className={styles.bread_wrapper}>
+          <IngredientHeader>Bread</IngredientHeader>
+          <CarouselSelect items={breadVariants} onSelect={handleBreadSelection} icon={breadIcon} />
         </div>
 
-        <main className={styles.form_container}>
-          <span className={styles.form_title}>CONFIGURE BASE</span>
-          <div className={styles.bread_wrapper}>
-            <IngredientHeader>Bread</IngredientHeader>
-            <CarouselSelect items={breadVariants} onSelect={handleBreadSelection} icon={breadIcon} />
+        <section className={styles.ingredients_container}>
+          <SwitchWrapper title={'Cheese'} handleSwitch={() => handleSwitch('cheese')} />
+          <IngredientSection
+            className={hiddenSections.cheese && styles.hidden}
+            fields={cheeseFields}
+            items={cheeseVariants}
+            appendItem={handleAddCheese}
+            removeItem={removeCheese}
+            handleSelect={handleSelectCheese}
+            control={control}
+            type="dropdown"
+            name="cheese"
+          />
+        </section>
+
+        <section className={styles.ingredients_container}>
+          <SwitchWrapper title={'Meat'} handleSwitch={() => handleSwitch('meat')} />
+          <IngredientSection
+            className={hiddenSections.meat && styles.hidden}
+            fields={meatFields}
+            items={meatVariants}
+            appendItem={handleAddMeat}
+            removeItem={removeMeat}
+            handleSelect={handleSelectMeat}
+            control={control}
+            type="dropdown"
+            name="meat"
+          />
+        </section>
+
+        <section className={styles.ingredients_container}>
+          <SwitchWrapper title={'Dressing'} handleSwitch={() => handleSwitch('dressing')} />
+          <IngredientSection
+            className={hiddenSections.dressing && styles.hidden}
+            fields={dressingFields}
+            items={dressingVariants}
+            appendItem={handleAddDressing}
+            removeItem={removeDressing}
+            handleSelect={handleSelectDressing}
+            control={control}
+            type="carousel"
+            name="dressing"
+          />
+        </section>
+
+        <section className={styles.ingredients_container}>
+          <IngredientHeader>Vegetables</IngredientHeader>
+          <div className={styles.vegetables_wrapper}>
+            {vegetableVariant.map((veggie, index) => (
+              <ButtonSelect
+                key={index}
+                item={formatToTitleCase(veggie)}
+                onClick={() => handleSelectVegetable(veggie, !selectedVegetables.includes(veggie))}
+                selected={selectedVegetables.includes(veggie)}
+              />
+            ))}
           </div>
-
-          <section className={styles.ingredients_container}>
-            <SwitchWrapper title={'Cheese'} handleSwitch={() => handleSwitch('cheese')} />
-            <IngredientSection
-              className={hiddenSections.cheese && styles.hidden}
-              fields={cheeseFields}
-              items={cheeseVariants}
-              appendItem={handleAddCheese}
-              removeItem={removeCheese}
-              handleSelect={handleSelectCheese}
-              control={control}
-              type="dropdown"
-              name="cheese"
-            />
-          </section>
-
-          <section className={styles.ingredients_container}>
-            <SwitchWrapper title={'Meat'} handleSwitch={() => handleSwitch('meat')} />
-            <IngredientSection
-              className={hiddenSections.meat && styles.hidden}
-              fields={meatFields}
-              items={meatVariants}
-              appendItem={handleAddMeat}
-              removeItem={removeMeat}
-              handleSelect={handleSelectMeat}
-              control={control}
-              type="dropdown"
-              name="meat"
-            />
-          </section>
-
-          <section className={styles.ingredients_container}>
-            <SwitchWrapper title={'Dressing'} handleSwitch={() => handleSwitch('dressing')} />
-            <IngredientSection
-              className={hiddenSections.dressing && styles.hidden}
-              fields={dressingFields}
-              items={dressingVariants}
-              appendItem={handleAddDressing}
-              removeItem={removeDressing}
-              handleSelect={handleSelectDressing}
-              control={control}
-              type="carousel"
-              name="dressing"
-            />
-          </section>
-
-          <section className={styles.ingredients_container}>
-  <IngredientHeader>Vegetables</IngredientHeader>
-  <div className={styles.vegetables_wrapper}>
-    {vegetableVariant.map((veggie, index) => (
-      <ButtonSelect
-        key={index}
-        item={formatToTitleCase(veggie)}
-        onClick={() => handleSelectVegetable(veggie, !selectedVegetables.includes(veggie))}
-        selected={selectedVegetables.includes(veggie)}
-      />
-    ))}
-  </div>
-</section>
-
-          <button type="submit" className={styles.submit_button}>
-            Submit
-          </button>
-        </main>
-      </form>
-    </FormProvider>
+        </section>
+      </main>
+    </form>
   )
 }
 export default ConfigureBase

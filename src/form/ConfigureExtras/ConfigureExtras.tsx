@@ -1,44 +1,24 @@
 import React, { useState } from 'react'
+import { useFieldArray, Controller, useFormContext } from 'react-hook-form'
 import styles from './ConfigureExtras.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
 
-import { Remove } from '../../assets/icons/Remove/Remove'
-import { Add } from '../../assets/icons/Add/Add'
-
 import { IngredientHeader } from '../../components/IngredientHeader/IngredientHeader'
-import { DropdownSelect } from '../../components/DropdownSelect/DropdownSelect'
 import { SwitchWrapper } from '../../components/SwitchWrapper/SwitchWrapper'
 import { CheckboxSelect } from '../../components/CheckboxSelect/CheckboxSelect'
 import { RadioSelect } from '../../components/RadioSelect/RadioSelect'
+import { IngredientSection } from '../shared/IngredientSection'
 
 import { eggVariants } from '../../data/egg'
 import { spreadVariant } from '../../data/spread'
 import { servingVariant } from '../../data/serving'
 import { toppingVariant } from '../../data/topping'
 
-import { useForm, useFieldArray, Controller } from 'react-hook-form'
-
-type FormData = {
-  extras: {
-    egg: string[]
-    spreads: string[]
-    serving: string
-    topping: null | string
-  }
-}
-
 export const ConfigureExtras = () => {
-  const { control, setValue, handleSubmit, getValues } = useForm<FormData>({
-    defaultValues: {
-      extras: {
-        egg: [eggVariants[0]],
-        spreads: [],
-        serving: '',
-        topping: null
-      },
-    },
-  })
+  const [hiddenSection, setHiddenSection] = useState<boolean>(false)
+
+  const { control, setValue, handleSubmit, getValues } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'extras.egg',
@@ -53,19 +33,19 @@ export const ConfigureExtras = () => {
     append(eggVariants[0])
   }
 
-  const handleSpreadChange = (spread: string, isChecked: boolean) => {
-    let updatedSpreads = [...getValues('extras.spreads')] // Get the current spreads array
+  const handleSpreadChange = (selectedSpread: string, isChecked: boolean) => {
+    let spreadsArray = [...getValues('extras.spreads')] // Get the current spreads array
     if (isChecked) {
-      updatedSpreads.push(spread)
+      spreadsArray.push(selectedSpread) // Add selected spread
     } else {
-      updatedSpreads = updatedSpreads.filter((item) => item !== spread) //remove selected spread if !checked
+      spreadsArray = spreadsArray.filter((item) => item !== selectedSpread) // Remove spread from array if !checked
     }
-    setValue('extras.spreads', updatedSpreads) //update array 'extras.spreads'
+    setValue('extras.spreads', spreadsArray) // Update spreads array
   }
-  
-  const handleToppingChange = (isChecked: boolean) => {
-    setValue('extras.topping', isChecked ? toppingVariant[0] : null);
-  };
+
+  const handleSwitch = () => {
+    setHiddenSection(!hiddenSection)
+  }
 
   return (
     <form className={styles.extras_container}>
@@ -73,26 +53,18 @@ export const ConfigureExtras = () => {
         <span className={styles.form_title}>CONFIGURE EXTRAS</span>
 
         <section className={styles.first_ingredient_wrapper}>
-          <SwitchWrapper title={'Egg'} handleSwitch={() => console.log('click')} />
-          <div className={styles.ingredients_column}>
-            {fields.map((item, index) => (
-              <div key={item.id} className={styles.testy}>
-                {index > 0 ? <Remove onClick={() => remove(index)} /> : <Add onClick={handleAddEgg} />}
-                <Controller
-                  render={({ field }) => (
-                    <DropdownSelect
-                      items={eggVariants}
-                      selectedItem={field.value as string}
-                      onSelect={(selectedItem) => handleSelectEgg(selectedItem, index)}
-                    />
-                  )}
-                  name={`extras.egg[${index}]`}
-                  control={control}
-                  defaultValue={eggVariants[0]}
-                />
-              </div>
-            ))}
-          </div>
+          <SwitchWrapper title={'Egg'} handleSwitch={handleSwitch} />
+          <IngredientSection
+            className={hiddenSection && styles.hidden}
+            fields={fields}
+            items={eggVariants}
+            appendItem={handleAddEgg}
+            removeItem={remove}
+            handleSelect={handleSelectEgg}
+            control={control}
+            type="dropdown"
+            name="egg"
+          />
         </section>
 
         <section className={styles.ingredients_container}>
@@ -110,39 +82,46 @@ export const ConfigureExtras = () => {
         </section>
 
         <section className={styles.ingredients_container_center}>
-        <IngredientHeader>Servings</IngredientHeader>
-        <div className={styles.serving_row}>
-          {servingVariant.map((serving, index) => (
+          <IngredientHeader>Servings</IngredientHeader>
+          <div className={styles.serving_row}>
+            {servingVariant.map((serving, index) => (
+              <Controller
+                render={({ field }) => (
+                  <RadioSelect
+                    checked={field.value === serving}
+                    onChange={(e) => field.onChange(serving)}
+                    name="serving"
+                    id={`serving-${index}`}
+                    value={serving}
+                    label={serving.toUpperCase()}
+                  />
+                )}
+                name="extras.serving"
+                control={control}
+                defaultValue=""
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.ingredients_container_center}>
+          <IngredientHeader>Toppings</IngredientHeader>
+          <div className={styles.toppings_columns}>
             <Controller
+              name="extras.topping"
+              control={control}
+              defaultValue={false}
               render={({ field }) => (
-                <RadioSelect
-                  checked={field.value === serving}
-                  onChange={(e) => field.onChange(serving)}
-                  name="serving"
-                  id={`serving-${index}`}
-                  value={serving}
-                  label={serving.toUpperCase()}
+                <CheckboxSelect
+                  key={toppingVariant[0]}
+                  onChange={(e) => field.onChange(e.target.checked)}
+                  checked={field.value === toppingVariant[0]}
+                  label={toppingVariant[0].toUpperCase()}
                 />
               )}
-              name="extras.serving"
-              control={control}
-              defaultValue=""
             />
-          ))}
-        </div>
-      </section>
-
- <section className={styles.ingredients_container_center}>
-        <IngredientHeader>Toppings</IngredientHeader>
-        <div className={styles.toppings_columns}>
-          <CheckboxSelect
-            key={toppingVariant[0]}
-            onChange={(e) => handleToppingChange(e.target.checked)}
-            checked={getValues('extras.topping') === toppingVariant[0]}
-            label={toppingVariant[0].toUpperCase()}
-          />
-        </div>
-      </section>
+          </div>
+        </section>
       </main>
     </form>
   )

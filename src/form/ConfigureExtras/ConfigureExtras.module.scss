@@ -1,12 +1,7 @@
-@import url(../../globals.scss);
+@import url(../../views/PaniniCreator/PaniniCreator.module.scss);
 
 .extras_container {
   margin-top: 30px;
-}
-
-.egg_wrapper {
-  border-top: 0.5px solid black;
-  padding: 20px 0;
 }
 
 .spreads_columns {
@@ -19,55 +14,4 @@
   display: flex;
   gap: 15px;
   margin-top: 10px;
-}
-
-
-
-.testy {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 10px; /* Możesz dostosować margines, aby dodać odstęp między wierszami */
-
-  &.column {
-    flex-direction: row
-  }
-}
-
-.testy2 {
-  display: flex;
-flex-direction: column;
-}
-
-.extras_title {
-  display: flex;
-  justify-content: center;
-  color: black;
-  font-family: Instrument Serif;
-  font-size: 26px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin: 80px 0 40px 0;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.column {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.testy { 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 50px;
 }

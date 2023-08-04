@@ -8,9 +8,10 @@ export interface CheckboxSelectProps {
   onChange(e: React.ChangeEvent<HTMLInputElement>): void
   id?: string
   label: string
+  name?: string
 }
 
-export const CheckboxSelect = ({ checked = true, id, onChange, label }: PropsWithChildren<CheckboxSelectProps>) => {
+export const CheckboxSelect = ({ checked = true, id, onChange, label, name }: PropsWithChildren<CheckboxSelectProps>) => {
   const [isChecked, setIsChecked] = useState(checked)
 
   useEffect(() => {
@@ -37,6 +38,7 @@ export const CheckboxSelect = ({ checked = true, id, onChange, label }: PropsWit
           onChange(e)
         }}
         id={id}
+        name={name}
       />
     </div>
   )
