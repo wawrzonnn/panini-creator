@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from './ConfigureBase.module.scss'
-import { useFormContext, useFieldArray, FormProvider } from 'react-hook-form'
+import { useFormContext, useFieldArray } from 'react-hook-form'
 
 import { Dices } from '../../assets/icons/Dices'
 import { Grain } from '../../assets/icons/Grain'
@@ -18,22 +18,13 @@ import { dressingVariants } from '../../data/dressing'
 import { vegetableVariant } from '../../data/vegetable'
 
 import { formatToTitleCase } from '../../utils/formatToTitleCase'
-import { IngredientSection } from '../shared/IngredientSection'
+import { IngredientSection } from '../shared/IngredientSection/IngredientSection'
 
 type HiddenSectionState = Record<IngredientType, boolean>
 type IngredientType = 'cheese' | 'meat' | 'dressing'
-type FormData = {
-  base: {
-    bread: string
-    cheese: string[]
-    meat: string[]
-    dressing: string[]
-    vegetables: string[]
-  }
-}
 
 const ConfigureBase = () => {
-  const { control, setValue, getValues, watch, handleSubmit } = useFormContext()
+  const { control, setValue, getValues, watch } = useFormContext()
 
   const useIngredientFieldArray = (ingredientName: string) =>
     useFieldArray({

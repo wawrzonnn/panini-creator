@@ -1,9 +1,9 @@
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { DropdownSelect } from '../../components/DropdownSelect/DropdownSelect'
-import { CarouselSelect } from '../../components/CarouselSelect/CarouselSelect'
-import { Add } from '../../assets/icons/Add/Add'
-import { Remove } from '../../assets/icons/Remove/Remove'
+import { DropdownSelect } from '../../../components/DropdownSelect/DropdownSelect'
+import { CarouselSelect } from '../../../components/CarouselSelect/CarouselSelect'
+import { Add } from '../../../assets/icons/Add/Add'
+import { Remove } from '../../../assets/icons/Remove/Remove'
 import styles from './IngredientSection.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
@@ -20,7 +20,7 @@ export type IngredientSectionProps = {
   className?: string
 }
 
-export const IngredientSection: React.FC<IngredientSectionProps> = ({
+export const IngredientSection = ({
   fields,
   items,
   appendItem,
@@ -30,7 +30,7 @@ export const IngredientSection: React.FC<IngredientSectionProps> = ({
   name,
   type,
   className,
-}) => {
+}: IngredientSectionProps) => {
   const { setValue } = useFormContext()
 
   return (

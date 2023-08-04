@@ -1,10 +1,10 @@
 import React from 'react'
+import { useFormContext, Controller } from 'react-hook-form'
 import styles from './FinalizeOrder.module.scss'
 
 import { IngredientHeader } from '../../components/IngredientHeader/IngredientHeader'
 import { TextField } from '../../components/TextField/TextField'
-import { CheckboxSelect } from '../../components/CheckboxSelect/CheckboxSelect'
-import { useFormContext, Controller } from 'react-hook-form'
+import { ControlledCheckboxSection } from '../shared/ControlledCheckboxSection/ControlledCheckboxSection'
 
 interface FinalizeOrderProps {
   onPlaceOrder: () => void
@@ -32,40 +32,10 @@ const FinalizeOrder = ({ onPlaceOrder }: FinalizeOrderProps) => {
             )}
           />
         </section>
-        <section className={styles.ingredients_container_center}>
-          <IngredientHeader>Cutlery</IngredientHeader>
-          <div>
-            <Controller
-              name="cutlery"
-              control={control}
-              defaultValue={false}
-              render={({ field }) => (
-                <CheckboxSelect
-                  label={'ADD TO ORDER'}
-                  onChange={(e) => field.onChange(e.target.checked)} 
-                  name="cutlery"
-                />
-              )}
-            />
-          </div>
-        </section>
-        <section className={styles.ingredients_container_center}>
-          <IngredientHeader>Napkins</IngredientHeader>
-          <div>
-            <Controller
-              name="napkins"
-              control={control}
-              defaultValue={false}
-              render={({ field }) => (
-                <CheckboxSelect
-                  label={'ADD TO ORDER'}
-                  onChange={(e) => field.onChange(e.target.checked)}
-                  name="napkins"
-                />
-              )}
-            />
-          </div>
-        </section>
+
+        <ControlledCheckboxSection name="cutlery" label="Cutlery" control={control} /> 
+        <ControlledCheckboxSection name="napkins" label="Napkins" control={control} />
+
         <section className={styles.buttons_wrapper}>
           <button className={styles.button_black}>PLACE ORDER</button>
           <button className={styles.button_white}>START AGAIN</button>
