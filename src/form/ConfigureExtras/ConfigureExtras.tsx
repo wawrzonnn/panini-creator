@@ -62,6 +62,7 @@ export const ConfigureExtras = () => {
     }
     setValue('extras.spreads', updatedSpreads) //update array 'extras.spreads'
   }
+  
   const handleToppingChange = (isChecked: boolean) => {
     setValue('extras.topping', isChecked ? toppingVariant[0] : null);
   };
