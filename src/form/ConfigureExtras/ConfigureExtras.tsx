@@ -8,7 +8,7 @@ import { IngredientHeader } from '../../components/IngredientHeader/IngredientHe
 import { SwitchWrapper } from '../../components/SwitchWrapper/SwitchWrapper'
 import { CheckboxSelect } from '../../components/CheckboxSelect/CheckboxSelect'
 import { RadioSelect } from '../../components/RadioSelect/RadioSelect'
-import { IngredientSection } from '../shared/IngredientSection'
+import { IngredientSection } from '../shared/IngredientSection/IngredientSection'
 
 import { eggVariants } from '../../data/egg'
 import { spreadVariant } from '../../data/spread'

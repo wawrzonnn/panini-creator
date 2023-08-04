@@ -36,8 +36,8 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
         topping: null,
       },
       paniniName: '',
-      cutlery: false,
-      napkins: false,
+      cutlery: true,
+      napkins: true,
     },
   })
 
@@ -50,16 +50,16 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
 
   return (
     <FormProvider {...methods}>
-      <motion.div
-        className={styles.container}
-        initial={{ opacity: 0 }}
-        animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <ConfigureBase />
-        <ConfigureExtras />
-        <FinalizeOrder onPlaceOrder={handlePlaceOrder} />
-      </motion.div>
+        <motion.div
+          className={styles.container}
+          initial={{ opacity: 0 }}
+          animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <ConfigureBase />
+          <ConfigureExtras />
+          <FinalizeOrder onPlaceOrder={handlePlaceOrder} />
+        </motion.div>
     </FormProvider>
   )
 }

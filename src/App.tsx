@@ -1,5 +1,4 @@
 import './App.scss'
-import './globals.scss'
 import React, { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import SplashScreen from './views/SplashScreen/SplashScreen'
