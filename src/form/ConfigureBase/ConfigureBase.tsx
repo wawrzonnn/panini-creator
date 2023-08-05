@@ -59,11 +59,6 @@ const ConfigureBase = () => {
     dressingArray[index] = selectedDressing
     setValue('base.dressing', dressingArray)
   }
-  const handleSelectEgg = (selectedEgg: string, index: number) => {
-    const eggArray = [...getValues('base.egg')]
-    eggArray[index] = selectedEgg
-    setValue('base.egg', eggArray)
-  }
   //BREAD
   const selectedBread = watch('base.bread', breadVariants[0]) // Icon check <Grain /> / <Wheat />
   const breadIcon = selectedBread.includes('GRAIN') ? <Grain /> : <Wheat />
