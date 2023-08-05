@@ -9,22 +9,20 @@ import { eggVariants } from '../data/egg'
 export const resetPanini = () => {
   return {
     base: {
-      base: {
-        bread: breadVariants[0],
-        cheese: [cheeseVariants[0]],
-        meat: [meatVariants[0]],
-        dressing: [dressingVariants[0]],
-        vegetables: [],
-      },
-      extras: {
-        egg: [eggVariants[0]],
-        spreads: [],
-        serving: 'GRILLED',
-        topping: null,
-      },
-      paniniName: '',
-      cutlery: true,
-      napkins: true,
+      bread: breadVariants[0],
+      cheese: [cheeseVariants[0]],
+      meat: [meatVariants[0]],
+      dressing: [dressingVariants[0]],
+      vegetables: [],
     },
+    extras: {
+      egg: [eggVariants[0]],
+      spreads: [],
+      serving: 'GRILLED',
+      topping: null,
+    },
+    paniniName: '',
+    cutlery: true,
+    napkins: true,
   }
 }
