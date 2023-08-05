@@ -6,7 +6,6 @@ import { IngredientHeader } from '../../components/IngredientHeader/IngredientHe
 import { TextField } from '../../components/TextField/TextField'
 import { ControlledCheckboxSection } from '../shared/ControlledCheckboxSection/ControlledCheckboxSection'
 
-
 const FinalizeOrder = () => {
   const {
     control,
@@ -34,11 +33,13 @@ const FinalizeOrder = () => {
           />
         </section>
 
-        <ControlledCheckboxSection name="cutlery" label="Cutlery" control={control} />
-        <ControlledCheckboxSection name="napkins" label="Napkins" control={control} />
+        <ControlledCheckboxSection title="Cutlery" name="cutlery" label="ADD TO ORDER" control={control} />
+        <ControlledCheckboxSection title="Napkins" name="napkins" label="ADD TO ORDER" control={control} />
 
         <section className={styles.buttons_wrapper}>
-          <button type='submit' className={styles.button_black}>PLACE ORDER</button>
+          <button type="submit" className={styles.button_black}>
+            PLACE ORDER
+          </button>
           <button className={styles.button_white}>START AGAIN</button>
         </section>
       </main>
