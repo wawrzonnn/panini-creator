@@ -18,29 +18,31 @@ import { toppingVariant } from '../../data/topping'
 export const ConfigureExtras = () => {
   const [hiddenSection, setHiddenSection] = useState<boolean>(false)
 
-  const { control, setValue, getValues } = useFormContext()
+  const { control, setValue, getValues, reset, watch } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'extras.egg',
   })
+  const handleAddEgg = () => {
+    append(eggVariants[0])
+  }
 
   const handleSelectEgg = (selectedEgg: string, index: number) => {
     const eggArray = [...getValues('extras.egg')] // Get the current egg array
     eggArray[index] = selectedEgg // Update the selected egg
     setValue('extras.egg', eggArray) // Set the new array as the value for 'extras.egg'
   }
-  const handleAddEgg = () => {
-    append(eggVariants[0])
-  }
+//SPREADS
+  const selectedSpreads = watch('extras.spreads', [])
 
-  const handleSpreadChange = (selectedSpread: string, isChecked: boolean) => {
+  const handleSelectSpread = (selectedSpread: string, isChecked: boolean) => {
     let spreadsArray = [...getValues('extras.spreads')] // Get the current spreads array
     if (isChecked) {
-      spreadsArray.push(selectedSpread) // Add selected spread
+      spreadsArray.push(selectedSpread) // add spread
     } else {
-      spreadsArray = spreadsArray.filter((item) => item !== selectedSpread) // Remove spread from array if !checked
+      spreadsArray = spreadsArray.filter((item) => item !== selectedSpread) //remove selected spread if !checked
     }
-    setValue('extras.spreads', spreadsArray) // Update spreads array
+    setValue('extras.spreads', spreadsArray) //update array 'extras.spreads'
   }
 
   const handleSwitch = () => {
@@ -64,18 +66,19 @@ export const ConfigureExtras = () => {
             control={control}
             type="dropdown"
             name="egg"
+            section="extras"
           />
         </section>
-
+   
         <section className={styles.ingredients_container}>
           <IngredientHeader>Spreads</IngredientHeader>
           <div className={styles.spreads_columns}>
-            {spreadVariant.map((spread) => (
+            {spreadVariant.map((spread, index) => (
               <CheckboxSelect
-                key={spread}
-                onChange={(e) => handleSpreadChange(spread, e.target.checked)}
-                checked={getValues('extras.spreads').includes(spread)}
-                label={spread.toUpperCase()}
+                key={index}
+                label={spread}
+                onChange={() => handleSelectSpread(spread, !selectedSpreads.includes(spread))}
+                checked={selectedSpreads.includes(spread)}
               />
             ))}
           </div>
@@ -100,7 +103,6 @@ export const ConfigureExtras = () => {
                 control={control}
                 defaultValue=""
               />
-              
             ))}
           </div>
         </section>
@@ -116,7 +118,7 @@ export const ConfigureExtras = () => {
                 <CheckboxSelect
                   key={toppingVariant[0]}
                   onChange={(e) => field.onChange(e.target.checked)}
-                  checked={field.value === toppingVariant[0]}
+                  checked={field.value}
                   label={toppingVariant[0].toUpperCase()}
                 />
               )}

@@ -8,12 +8,13 @@ interface ControlledCheckboxSectionProps {
     name: string;
     label: string;
     control: any;
+    title: string
   }
 
 
-export const ControlledCheckboxSection = ({ name, label, control }: ControlledCheckboxSectionProps) => (
+export const ControlledCheckboxSection = ({ name, label, control, title }: ControlledCheckboxSectionProps) => (
   <section className={styles.ingredients_container_center}>
-    <IngredientHeader>{label}</IngredientHeader>
+    <IngredientHeader>{title}</IngredientHeader>
     <div>
       <Controller
         name={name}
@@ -21,9 +22,10 @@ export const ControlledCheckboxSection = ({ name, label, control }: ControlledCh
         defaultValue={false}
         render={({ field }) => (
           <CheckboxSelect
-            label={'ADD TO ORDER'}
+            label={label}
             onChange={(e) => field.onChange(e.target.checked)}
             name={name}
+            checked={field.value}
           />
         )}
       />

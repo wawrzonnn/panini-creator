@@ -16,6 +16,7 @@ export type IngredientSectionProps = {
   handleSelect: (selectedItem: string, index: number) => void
   control: any
   name: string
+  section: string
   type: 'dropdown' | 'carousel'
   className?: string
 }
@@ -28,6 +29,7 @@ export const IngredientSection = ({
   handleSelect,
   control,
   name,
+  section,
   type,
   className,
 }: IngredientSectionProps) => {
@@ -49,7 +51,7 @@ export const IngredientSection = ({
                       selectedItem={field.value as string}
                       onSelect={(selectedItem) => {
                         handleSelect(selectedItem, index)
-                        setValue(`base.${name}[${index}]`, selectedItem)
+                        setValue(`${section}.${name}[${index}]`, selectedItem)
                       }}
                     />
                   ) : (
@@ -62,7 +64,7 @@ export const IngredientSection = ({
                     </div>
                   )
                 }}
-                name={`base.${name}[${index}]`}
+                name={`${section}.${name}[${index}]`}
                 control={control}
                 defaultValue={items[0]}
               />
