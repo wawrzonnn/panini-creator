@@ -27,6 +27,7 @@ export const randomizePanini = () => {
     const spreads: string[] = []
     for (let i = 0; i < spreadVariant.length; i++) {
       if (Math.random() < 0.5) {
+        spreads.push(spreadVariant[i])
       }
     }
     return spreads

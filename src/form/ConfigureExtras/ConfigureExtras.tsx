@@ -45,6 +45,23 @@ export const ConfigureExtras = () => {
     setValue('extras.spreads', spreadsArray) //update array 'extras.spreads'
   }
 
+  const selectedVegetables = watch('base.vegetables', [])
+
+  const handleSelectVegetable = (selectedVegetable: string, isChecked: boolean) => {
+    let vegetablesArray = [...getValues('base.vegetables')] // Get the current vegetables array
+    if (isChecked) {
+      vegetablesArray.push(selectedVegetable) // add veggie
+    } else {
+      vegetablesArray = vegetablesArray.filter((item) => item !== selectedVegetable) //remove selected vegetable if !checked
+    }
+    setValue('base.vegetables', vegetablesArray) //update array 'base.vegetables'
+  }
+
+
+
+
+
+
   const handleSwitch = () => {
     setHiddenSection(!hiddenSection)
   }
