@@ -5,12 +5,20 @@ import styles from './FinalizeOrder.module.scss'
 import { IngredientHeader } from '../../components/IngredientHeader/IngredientHeader'
 import { TextField } from '../../components/TextField/TextField'
 import { ControlledCheckboxSection } from '../shared/ControlledCheckboxSection/ControlledCheckboxSection'
+import { randomizePanini } from '../../utils/randomizePanini'
+import { resetPanini } from '../../utils/resetPanini'
 
 const FinalizeOrder = () => {
-  const {
+  const { formState: { defaultValues },
     reset, control,
     formState: { errors },
   } = useFormContext()
+
+  const handleReset = () => {
+    const randomValues = randomizePanini()
+    reset(randomValues)
+    reset(defaultValues)
+  }
 
   return (
     <div className={styles.finalize_container}>
@@ -40,7 +48,7 @@ const FinalizeOrder = () => {
           <button type="submit" className={styles.button_black}>
             PLACE ORDER
           </button>
-          <button type="button" onClick={() => reset()} className={styles.button_white}>START AGAIN</button>
+          <button type="button" onClick={() => reset(resetPanini)} className={styles.button_white}>START AGAIN</button>
         </section>
       </main>
     </div>
