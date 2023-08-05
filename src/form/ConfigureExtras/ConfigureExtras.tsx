@@ -85,7 +85,7 @@ export const ConfigureExtras = () => {
         </section>
 
         <section className={styles.ingredients_container_center}>
-          <IngredientHeader>Servings</IngredientHeader>
+          <IngredientHeader>Serving</IngredientHeader>
           <div className={styles.serving_row}>
             {servingVariant.map((serving, index) => (
               <Controller
@@ -108,8 +108,8 @@ export const ConfigureExtras = () => {
         </section>
 
         <section className={styles.ingredients_container_center}>
-          <IngredientHeader>Toppings</IngredientHeader>
-          <div className={styles.toppings_columns}>
+          <IngredientHeader>Topping</IngredientHeader>
+          <div>
             <Controller
               name="extras.topping"
               control={control}
