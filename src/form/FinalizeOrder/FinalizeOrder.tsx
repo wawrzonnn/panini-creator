@@ -8,7 +8,7 @@ import { ControlledCheckboxSection } from '../shared/ControlledCheckboxSection/C
 
 const FinalizeOrder = () => {
   const {
-    control,
+    reset, control,
     formState: { errors },
   } = useFormContext()
 
@@ -40,7 +40,7 @@ const FinalizeOrder = () => {
           <button type="submit" className={styles.button_black}>
             PLACE ORDER
           </button>
-          <button className={styles.button_white}>START AGAIN</button>
+          <button type="button" onClick={() => reset()} className={styles.button_white}>START AGAIN</button>
         </section>
       </main>
     </div>
