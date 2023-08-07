@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { useFieldArray, Controller, useFormContext } from 'react-hook-form'
 import styles from './ConfigureExtras.module.scss'
-import classNames from 'classnames'
-const cx = classNames.bind(styles)
 
 import { IngredientHeader } from '../../components/IngredientHeader/IngredientHeader'
 import { SwitchWrapper } from '../../components/SwitchWrapper/SwitchWrapper'

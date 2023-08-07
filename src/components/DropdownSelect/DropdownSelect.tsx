@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styles from './DropdownSelect.module.scss'
 import { ArrowDown } from '../../assets/icons/ArrowDown'
 import { ArrowUp } from '../../assets/icons/ArrowUp'
@@ -19,23 +19,39 @@ export const DropdownSelect = ({
 
   const selectedItem = controlledSelectedItem ?? localSelectedItem;
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleSelect = (item: string) => {
     setLocalSelectedItem(item);
     onSelect(item);
     setIsOpen(false);
   };
 
-  const handleToggle = () => {
+  const handleToggle = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
     setIsOpen(!isOpen)
   }
 
   return (
-    <div className={styles.wrapper} onClick={handleToggle}>
-      <div className={styles.selectedItem}>{controlledSelectedItem || selectedItem}</div>
+    <div className={styles.wrapper} ref={wrapperRef} onClick={handleToggle}>
+      <div className={styles.selectedItem}>{selectedItem}</div>
       {isOpen && (
         <div className={styles.options}>
           {items.map((item, index) => {
-            if (item !== (controlledSelectedItem || selectedItem)) {
+            if (item !== selectedItem) {
               return (
                 <div key={index} className={styles.option} onClick={() => handleSelect(item)}>
                   {item}

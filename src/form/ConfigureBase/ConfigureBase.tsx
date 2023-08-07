@@ -21,9 +21,11 @@ import { eggVariants } from '../../data/egg'
 
 import { formatToTitleCase } from '../../utils/formatToTitleCase'
 import { randomizePanini } from '../../utils/randomizePanini'
+import { convertToTitleCaseWithSpace } from '../../utils/convertToTitleCaseWithSpace'
 
 type HiddenSectionState = Record<IngredientType, boolean>
 type IngredientType = 'cheese' | 'meat' | 'dressing'
+
 
 const ConfigureBase = () => {
   const { control, setValue, getValues, watch, reset } = useFormContext()
@@ -163,7 +165,7 @@ const ConfigureBase = () => {
           <IngredientSection
             className={hiddenSections.dressing && styles.hidden}
             fields={dressingFields}
-            items={dressingVariants}
+            items={convertToTitleCaseWithSpace(dressingVariants)}
             appendItem={handleAddDressing}
             removeItem={removeDressing}
             handleSelect={handleSelectDressing}

@@ -1,33 +1,12 @@
-.circle {
-  position: relative;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  border: 0.5px solid var(--black);
-  color: var(--black);
-  background-color: var(--white);
-  transition: all 0.2s;
-  cursor: pointer;
+.addIcon {
+  stroke: black;
+  fill: none;
 }
 
-.circle:hover {
-  color: var(--white);
-  background-color: var(--black);
+.addIcon:hover rect {
+  fill: black;
 }
 
-.disabled {
-  opacity: var(--opacity-disabled);
-}
-
-.disabled:hover {
-  color: var(--black);
-  background-color: var(--white);
-  cursor: default;
-}
-
-.plus {
-  position: absolute;
-  top: -5px;
-  left: 2.8px;
-  font-size: 15px;
+.addIcon:hover line {
+  stroke: white;
 }

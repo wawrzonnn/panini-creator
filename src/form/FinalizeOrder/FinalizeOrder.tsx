@@ -5,7 +5,6 @@ import styles from './FinalizeOrder.module.scss'
 import { IngredientHeader } from '../../components/IngredientHeader/IngredientHeader'
 import { TextField } from '../../components/TextField/TextField'
 import { ControlledCheckboxSection } from '../shared/ControlledCheckboxSection/ControlledCheckboxSection'
-import { randomizePanini } from '../../utils/randomizePanini'
 import { resetPanini } from '../../utils/resetPanini'
 
 const FinalizeOrder = () => {
@@ -14,17 +13,11 @@ const FinalizeOrder = () => {
     formState: { errors },
   } = useFormContext()
 
-  const handleReset = () => {
-    const randomValues = randomizePanini()
-    reset(randomValues)
-    reset(defaultValues)
-  }
-
   return (
     <div className={styles.finalize_container}>
       <main className={styles.form_container}>
         <span className={styles.form_title}>FINALIZE ORDER</span>
-        <section className={styles.first_ingredient_wrapper}>
+        <section className={styles.panini_input_wrapper}>
           <IngredientHeader>Name panini</IngredientHeader>
           <Controller
             name="paniniName"
