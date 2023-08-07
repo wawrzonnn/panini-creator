@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const sandwichSchema = z.object({
-  paniniName: z.string().max(35),  
+  paniniName: z.string().max(35).optional(),  
   cutlery: z.boolean().optional(),
   napkins: z.boolean().optional(),
   base: z.object({

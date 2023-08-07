@@ -1,4 +1,3 @@
-import { vegetableVariant } from '../data/vegetable'
 import { breadVariants } from '../data/bread'
 import { cheeseVariants } from '../data/cheese'
 import { meatVariants } from '../data/meat'

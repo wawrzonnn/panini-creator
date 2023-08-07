@@ -13,6 +13,11 @@ const FinalizeOrder = () => {
     formState: { errors },
   } = useFormContext()
 
+  const handleReset = () => {
+    const initialValues = resetPanini()
+    reset(initialValues)
+}
+
   return (
     <div className={styles.finalize_container}>
       <main className={styles.form_container}>
@@ -29,6 +34,7 @@ const FinalizeOrder = () => {
                 name="paniniName"
                 onChange={(e) => field.onChange(e.target.value)}
                 error={errors.paniniName ? 'Name is too long. Max 35 characters.' : undefined}
+                value={field.value}
               />
             )}
           />
@@ -41,7 +47,7 @@ const FinalizeOrder = () => {
           <button type="submit" className={styles.button_black}>
             PLACE ORDER
           </button>
-          <button type="button" onClick={() => reset(resetPanini)} className={styles.button_white}>START AGAIN</button>
+          <button type="button" onClick={handleReset} className={styles.button_white}>START AGAIN</button>
         </section>
       </main>
     </div>
