@@ -56,7 +56,7 @@ const SplashScreen = ({ onStart, isOrderPlaced }: SplashScreenProps) => {
         className={getHeaderClasses}
         animate={startAnimation ? { opacity: 0, transition: { delay: 1, duration: 3 } } : { opacity: 1 }}
       >
-        <motion.span>Panini Creator</motion.span>
+        <motion.span>{isOrderPlaced ? 'Panini ordered' : 'Panini Creator'}</motion.span>
         <motion.button className={getButtonClasses} onClick={handleClick}>
           {isOrderPlaced ? 'START AGAIN' : 'BEGIN'}
         </motion.button>
