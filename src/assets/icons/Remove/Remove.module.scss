@@ -10,3 +10,7 @@
 .removeIcon:hover line {
   stroke: white;
 }
+
+.removeIcon line {
+  transform: translateY(1px);
+}

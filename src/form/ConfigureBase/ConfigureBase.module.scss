@@ -25,6 +25,11 @@
     cursor: pointer;
     border: none;
     border: 1px solid transparent;
+    font-family: Oxygen Mono;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
     &:hover {
       border: 1px solid black;
     }
