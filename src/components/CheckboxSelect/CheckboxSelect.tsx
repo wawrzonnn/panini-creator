@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { PropsWithChildren, useEffect, useState } from 'react'
-
+import classNames from 'classnames/bind'
 import styles from './CheckboxSelect.module.scss'
+const cx = classNames.bind(styles)
 
 export interface CheckboxSelectProps {
   checked?: boolean
@@ -11,12 +12,23 @@ export interface CheckboxSelectProps {
   name?: string
 }
 
-export const CheckboxSelect = ({ checked = true, id, onChange, label, name }: PropsWithChildren<CheckboxSelectProps>) => {
+export const CheckboxSelect = ({
+  checked = true,
+  id,
+  onChange,
+  label,
+  name,
+}: PropsWithChildren<CheckboxSelectProps>) => {
   const [isChecked, setIsChecked] = useState(checked)
 
   useEffect(() => {
     setIsChecked(checked)
   }, [checked])
+
+  const getCheckboxClasses = cx({
+    [styles.checkbox]: true,
+    [styles.checkboxChecked]: isChecked,
+  })
 
   return (
     <div className={styles.wrapper}>
@@ -29,17 +41,20 @@ export const CheckboxSelect = ({ checked = true, id, onChange, label, name }: Pr
       >
         {label}
       </label>
-      <input
-        type="checkbox"
-        className={styles.checkbox}
-        checked={isChecked}
-        onChange={(e) => {
+      <div className={getCheckboxClasses}  onClick={(e) => {
           setIsChecked(!isChecked)
-          onChange(e)
-        }}
-        id={id}
-        name={name}
-      />
+        }}>
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={(e) => {
+            setIsChecked(!isChecked)
+            onChange(e)
+          }}
+          id={id}
+          name={name}
+        />
+      </div>
     </div>
   )
 }

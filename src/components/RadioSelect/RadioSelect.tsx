@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { useEffect, useState } from 'react'
-
 import styles from './RadioSelect.module.scss'
 
 export interface RadioSelectProps {

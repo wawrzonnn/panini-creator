@@ -1,22 +1,19 @@
-import React from 'react'
-import styles from './Add.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
-
+import styles from './Add.module.scss'
 interface AddProps {
   onClick?: () => void
   className?: string
 }
 
 export const Add = ({ onClick, className }: AddProps) => {
-
   return (
-    <svg onClick={onClick} xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none" className={styles.addIcon}>
-      <rect x="0.25" y="0.25" width="16.5" height="16.5" rx="8.25" stroke="black" stroke-width="0.5" />
-      <line x1="8.75" y1="4.5" x2="8.75" y2="12.5" stroke="black" stroke-width="0.5" />
-      <line x1="4.5" y1="8.25" x2="12.5" y2="8.25" stroke="black" stroke-width="0.5" />
+    <svg onClick={onClick} className={styles.addIcon} xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+      <rect className={styles.addIconBackground} x="0.25" y="0.25" width="16.5" height="16.5" rx="8.25" stroke="currentColor" stroke-width="0.5"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 12.5L8.25 4.5L8.75 4.5L8.75 12.5L8.25 12.5Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 8.75H4.5V8.25H12.5V8.75Z" fill="currentColor"/>
     </svg>
   )
 }
 
-export default Add
+export default Add;

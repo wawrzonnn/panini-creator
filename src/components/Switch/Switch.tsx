@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { PropsWithChildren, useEffect, useState } from 'react'
+import classNames from 'classnames/bind'
+const cx = classNames.bind(styles)
 
 import styles from './Switch.module.scss'
 
@@ -16,6 +18,12 @@ export const Switch = ({ checked = true, id, onChange }: PropsWithChildren<Switc
     setIsChecked(checked)
   }, [checked])
 
+
+  const getSliderClasses = cx({
+[styles.slider]: true,
+[styles.sliderChecked]: !isChecked
+	})
+
   return (
     <label className={styles.label}>
       <input
@@ -27,7 +35,7 @@ export const Switch = ({ checked = true, id, onChange }: PropsWithChildren<Switc
         }}
         id={id}
       />
-      <span className={styles.slider} />
+      <span className={getSliderClasses} />
     </label>
   )
 }

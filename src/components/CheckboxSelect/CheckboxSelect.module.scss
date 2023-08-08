@@ -6,21 +6,33 @@
 }
 
 .checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   appearance: none;
   width: 17px;
   height: 17px;
   border: 0.5px solid black;
   background: white;
   cursor: pointer;
+  position: relative;
+}
 
-  &:checked:after {
-    content: '';
-    display: block;
-    width: 7px;
-    height: 7px;
-    background: black;
-    margin: 4px;
-  }
+.checkbox input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: -1; 
+}
+
+.checkboxChecked::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: black;
 }
 
 .label {
