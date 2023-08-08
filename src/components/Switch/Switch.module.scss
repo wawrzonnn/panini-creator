@@ -1,9 +1,14 @@
 .label {
-  position: relative;
-  display: inline-block;
+  display: flex;
   width: 27px;
   height: 17px;
   margin-left: 34px;
+  align-items: center;
+  border: 0.5px solid black;
+  border-radius: 32px;
+  padding: 0 3px;
+  transition: 1s;
+  cursor: pointer
 }
 
 .label input {
@@ -13,40 +18,23 @@
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  border-radius: 32px;
-  border: 0.5px solid #000000;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
+  display: flex;
   height: 9px;
   width: 9px;
-  left: 2px;
-  bottom: 1.5px;
-  background: white;
+  background: black;
   border: 0.5px solid black;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   border-radius: 16px;
+  margin-left: 10px;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(20px);
-  -ms-transform: translateX(20px);
-  transform: translateX(20px);
-  height: 9px;
-  width: 9px;
-  left: -8.5px;
-  bottom: 1.5px;
-  background: black;
+.sliderChecked {
+  background-color: white;
+  margin-left: 0;
+  margin-right: 9px;
 }
+
+
+
+

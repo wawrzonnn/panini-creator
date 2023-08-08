@@ -1,12 +1,11 @@
 .addIcon {
-  stroke: black;
-  fill: none;
-}
-
-.addIcon:hover rect {
-  fill: black;
-}
-
-.addIcon:hover line {
-  stroke: white;
+  &:hover {
+      .addIconBackground {
+          fill: black;
+          stroke: black;
+      }
+      path {
+          fill: white;
+      }
+  }
 }
