@@ -4,6 +4,7 @@ import { useForm, FormProvider } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { sandwichSchema } from '../../form/zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom';
 
 import { FormData } from '../../form/types'
 
@@ -18,7 +19,7 @@ import { dressingVariants } from '../../data/dressing'
 import { eggVariants } from '../../data/egg'
 
 interface PaniniCreatorProps {
-  onPlaceOrder: () => void
+  onPlaceOrder: () => void;
 }
 
 const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
@@ -49,13 +50,18 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
   } = methods
   const [isExiting, setIsExiting] = useState(false)
 
+  const navigate = useNavigate()
+
   const onSubmit = (data: FormData) => {
     if (Object.keys(errors).length === 0) {
-      console.log('Success, Form Data:', data)
-      setIsExiting(true)
-      setTimeout(onPlaceOrder, 1000)
+      console.log('Success, Form Data:', data)   
+      setIsExiting(true);       
+      setTimeout(() => {
+        onPlaceOrder();
+        navigate('/');
+    }, 2000);
     } else {
-      console.log('Error')
+      console.log('Error');
     }
   }
 
@@ -66,7 +72,7 @@ const PaniniCreator = ({ onPlaceOrder }: PaniniCreatorProps) => {
           className={styles.container}
           initial={{ opacity: 0 }}
           animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 2 }}
         >
           <ConfigureBase />
           <ConfigureExtras />
