@@ -27,7 +27,7 @@ export const CheckboxSelect = ({
 
   const getCheckboxClasses = cx({
     [styles.checkbox]: true,
-    [styles.checkboxChecked]: isChecked,
+    [styles.checkboxChecked]: isChecked 
   })
 
   return (
