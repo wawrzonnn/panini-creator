@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-
+import { useNavigate } from 'react-router-dom';
 import styles from './SplashScreen.module.scss'
 import classNames from 'classnames'
 const cx = classNames.bind(styles)
 
 interface SplashScreenProps {
-  onStart: () => void
-  isOrderPlaced: boolean
+  isOrderPlaced: boolean;
 }
-import { fadeLeft, fadeRight, fadeDown, fadeUp } from '../../animations/welcomeScreenAnimations'
+
+import { fadeLeft, fadeRight, fadeDown, fadeUp } from '../../animations/welcomeScreenAnimations';
+
 const animationMap = [
   { class: styles.circle__up, variant: fadeUp },
   { class: styles.circle__left, variant: fadeLeft },
@@ -19,22 +20,28 @@ const animationMap = [
   { class: styles.circle__rightinner, variant: fadeRight },
   { class: styles.circle__right, variant: fadeRight },
   { class: styles.circle__down, variant: fadeDown },
-]
-const SplashScreen = ({ onStart, isOrderPlaced }: SplashScreenProps) => {
-  const [startAnimation, setStartAnimation] = useState(false)
+];
 
-  const handleClick = () => {
-    setStartAnimation(true)
-    setTimeout(onStart, 4000)
-  }
+const SplashScreen = ({ isOrderPlaced }: SplashScreenProps) => {
+  const navigate = useNavigate();
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  const handleStart = () => {
+    setStartAnimation(true);
+    setTimeout(() => {
+        navigate('/panini');
+    }, 4000);
+};
+
   const getHeaderClasses = cx({
     [styles.header]: true,
     [styles.hidden__border]: startAnimation,
-  })
+  });
+
   const getButtonClasses = cx({
     [styles.button]: true,
-    [styles.button_start_again]: isOrderPlaced
-  })
+    [styles.button_start_again]: isOrderPlaced,
+  });
 
   return (
     <motion.div
@@ -57,11 +64,12 @@ const SplashScreen = ({ onStart, isOrderPlaced }: SplashScreenProps) => {
         animate={startAnimation ? { opacity: 0, transition: { delay: 1, duration: 3 } } : { opacity: 1 }}
       >
         <motion.span>{isOrderPlaced ? 'Panini ordered' : 'Panini Creator'}</motion.span>
-        <motion.button className={getButtonClasses} onClick={handleClick}>
+        <motion.button className={getButtonClasses} onClick={handleStart}>
           {isOrderPlaced ? 'START AGAIN' : 'BEGIN'}
         </motion.button>
       </motion.div>
     </motion.div>
-  )
-}
-export default SplashScreen
+  );
+};
+
+export default SplashScreen;
