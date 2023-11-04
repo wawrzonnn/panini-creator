@@ -10,10 +10,9 @@
   align-items: center;
   justify-content: center;
   @include mobile {
-    height: 100%; 
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    height: auto;
+    padding: 200px 0;
+    max-width: 350px;
   }
 }
 
@@ -35,11 +34,11 @@
   span {
     min-width: 400px;
   }
-  @include mobile {
-    height: 100%; 
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  padding: 50px 140px;
+  font-size: 24px;
+  span {
+    min-width: 200px;
   }
 }
 
@@ -61,10 +60,11 @@
   cursor: pointer;
   z-index: 998;
   @include mobile {
-    height: 100%; 
-    width: 100%;
+    height: 100%;
+    width: 100px;
     margin: 0;
-    padding: 0;
+    padding: 10px;
+    border: 1px solid black;
   }
 }
 
@@ -76,12 +76,101 @@
 .button_start_again {
   min-width: 130px;
   @include mobile {
-    height: 100%; 
-    width: 100%;
+    height: 100%;
+    width: 100px;
     margin: 0;
-    padding: 0;
+    padding: 10px;
+    border: 1px solid black;
   }
 }
 
+.circle {
+  position: absolute;
+  width: 1070px;
+  height: 1070px;
+  border-radius: 50%;
+  border: 0.5px solid black;
+  background: transparent;
+  @include mobile {
+    height: 250px;
+    width: 250px;
+  }
 
+  &__leftinner {
+    @extend .circle;
+    right: 350px;
+    @include mobile {
+      right: 276px;
+    }
+  }
+  &__rightinner {
+    @extend .circle;
+    left: 350px;
+    @include mobile {
+      left: 276px;
+    }
+  }
+  &__left {
+    @extend .circle;
+    right: 950px;
+    @include mobile {
+      right: 50px;
+      top:32px
+    }
+  }
+  &__right {
+    @extend .circle;
+    left: 950px;
+    @include mobile {
+      left: 50px;
+      bottom: 0px
+    }
+  }
+}
+.halfCircle__left {
+  @extend .circle;
+  width: 535px;
+  border-right: none;
+  border-radius: 535px 0 0 535px;
+  left: 74px;
 
+  @include mobile {
+    left: 44px;
+  }
+}
+
+.halfCircle__right {
+  @extend .circle;
+  width: 535px;
+  border-left: none;
+  border-radius: 0 535px 535px 0;
+  right: 74px;
+
+  @include mobile {
+    right: 44px;
+  }
+}
+
+.circle__up {
+  @extend .circle;
+  width: 632px;
+  height: 632px;
+  top: -210px;
+  @include mobile {
+    width: 300px;
+    height: 300px;
+    top: 409px;
+  }
+}
+
+.circle__down {
+  @extend .circle;
+  width: 632px;
+  height: 632px;
+  bottom: -210px;
+  @include mobile {
+    width: 300px;
+    height: 300px;
+    bottom: 409px;
+  }
+}
