@@ -1,23 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxygen+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  margin: 0 auto;
-  max-width: 1440px;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  --black: black;
-  --white: white;
-  --opacity-disabled: 0.5;
-}
 
 body {
   margin: 0;
@@ -31,4 +14,16 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 769px) {
+    @content;
+  }
 }

@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .wrapper {
   width: 100%;
   display: flex;
@@ -16,6 +18,10 @@
   background: white;
   cursor: pointer;
   position: relative;
+  @include mobile {
+    width: 34px;
+    height: 34px;
+  }
 }
 
 .checkbox input {
@@ -33,6 +39,10 @@
   width: 7px;
   height: 7px;
   background: black;
+  @include mobile {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 .label {
@@ -45,5 +55,9 @@
   font-weight: 400;
   line-height: normal;
   cursor: pointer;
+  @include mobile {
+    font-size: 22px;
+    min-width: 120px;
+  }
 }
 

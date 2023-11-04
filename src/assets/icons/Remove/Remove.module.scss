@@ -1,6 +1,12 @@
+@import '../../../App.scss';
+
 .removeIcon {
   stroke: black;
   fill: none;
+  @include mobile {
+    width: 45px;
+    height: 45px;
+  }
 }
 
 .removeIcon:hover rect {

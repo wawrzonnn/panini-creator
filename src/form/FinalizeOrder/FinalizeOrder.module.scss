@@ -1,12 +1,37 @@
-@import url(../../views/PaniniCreator/PaniniCreator.module.scss);
+@import '../../views/PaniniCreator/PaniniCreator.module.scss';
+@import '../../App.scss';
 
 .finalize_container {
   margin-top: 30px;
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.panini_input_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid black;
+  border-top: 0.5px solid black;
+  padding: 20px 0;
+  @include mobile {
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px 0;
+  }
 }
 
 .buttons_wrapper {
   display: flex;
   flex-direction: column;
+  button {
+    @include mobile {
+      padding: 30px 10px;
+      font-size: 22px;
+      border: 0.5px solid black;
+    }
+  }
 }
 
 .button_white {
@@ -22,6 +47,10 @@
   background: none;
   cursor: pointer;
   max-width: 300px;
+  @include mobile {
+    max-width: none;
+    width: 100%;
+  }
 }
 
 .button_white:hover {

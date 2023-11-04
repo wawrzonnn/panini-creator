@@ -1,4 +1,5 @@
-@import url(../../views/PaniniCreator/PaniniCreator.module.scss);
+@import '../../App.scss';
+@import '../../views/PaniniCreator/PaniniCreator.module.scss';
 
 .header {
   width: 630px;
@@ -6,13 +7,20 @@
   justify-content: space-between;
   margin-top: 100px;
   margin-bottom: 20px;
-
+  @include mobile {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    padding: 0 20px;
+  }
   &_title {
-    color: var(--black, #000);
     font-family: Instrument Serif;
     font-size: 36px;
     font-weight: 400;
     line-height: normal;
+    @include mobile {
+      font-size: 36px;
+    }
   }
 
   &_button {
@@ -31,6 +39,10 @@
     font-weight: 400;
     line-height: normal;
     &:hover {
+      border: 1px solid black;
+    }
+    @include mobile {
+      font-size: 24px;
       border: 1px solid black;
     }
   }
@@ -66,6 +78,24 @@
   border-top: 0.5px solid black;
   border-bottom: 0.5px solid black;
   padding: 20px 0;
+  @include mobile {
+    width: 100%;
+    min-height: 200px;
+  }
+}
+
+.ingredients_container_vegetables{
+  min-height: 77px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 0.5px solid black;
+  padding: 20px 0;
+  @include mobile {
+    display: block;
+    width: 100%;
+    padding: 30px;
+  }
 }
 
 .vegetables_wrapper {
@@ -74,6 +104,19 @@
   gap: 15px;
   flex-wrap: wrap;
   justify-content: flex-end;
+  @include mobile {
+    margin-top: 30px;
+    justify-content: center;
+    max-width: 100%;
+    width: 100%;
+    gap: 30px;
+  }
+}
+
+.dressing_wrapper {
+  @include mobile {
+  margin-top: -9px;
+  }
 }
 
 .separator {

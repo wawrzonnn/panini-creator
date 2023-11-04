@@ -1,17 +1,45 @@
-@import url(../../views/PaniniCreator/PaniniCreator.module.scss);
+@import '../../views/PaniniCreator/PaniniCreator.module.scss';
+@import '../../App.scss';
+
 
 .extras_container {
   margin-top: 30px;
+  @include mobile {
+    width: 100%;
+    main > span {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.spreads_container {
+  padding: 20px 0;
+  margin: 0;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .spreads_columns {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  @include mobile {
+    flex-direction: column;
+    gap: 35px;
+  }
 }
 
 .serving_row {
   display: flex;
   gap: 15px;
   margin-top: 10px;
+  @include mobile {
+    flex-direction: column;
+    gap: 35px;
+  }
+}
+
+.checkbox_section {
+  padding: 50px 0;
 }

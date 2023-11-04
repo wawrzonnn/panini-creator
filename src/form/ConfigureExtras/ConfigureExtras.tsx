@@ -30,7 +30,7 @@ export const ConfigureExtras = () => {
     eggArray[index] = selectedEgg // Update the selected egg
     setValue('extras.egg', eggArray) // Set the new array as the value for 'extras.egg'
   }
-//SPREADS
+  //SPREADS
   const selectedSpreads = watch('extras.spreads', [])
 
   const handleSelectSpread = (selectedSpread: string, isChecked: boolean) => {
@@ -54,11 +54,6 @@ export const ConfigureExtras = () => {
     }
     setValue('base.vegetables', vegetablesArray) //update array 'base.vegetables'
   }
-
-
-
-
-
 
   const handleSwitch = () => {
     setHiddenSection(!hiddenSection)
@@ -84,8 +79,8 @@ export const ConfigureExtras = () => {
             section="extras"
           />
         </section>
-   
-        <section className={styles.ingredients_container}>
+
+        <section className={`${styles.ingredients_container} ${styles.spreads_container}`}>
           <IngredientHeader>Spreads</IngredientHeader>
           <div className={styles.spreads_columns}>
             {spreadVariant.map((spread, index) => (
@@ -99,7 +94,7 @@ export const ConfigureExtras = () => {
           </div>
         </section>
 
-        <section className={styles.ingredients_container_center}>
+        <section className={`${styles.ingredients_container} ${styles.spreads_container}`}>
           <IngredientHeader>Serving</IngredientHeader>
           <div className={styles.serving_row}>
             {servingVariant.map((serving, index) => (
@@ -122,7 +117,7 @@ export const ConfigureExtras = () => {
           </div>
         </section>
 
-        <section className={styles.ingredients_container_center}>
+        <section className={` ${styles.ingredients_container_center} ${styles.checkbox_section}`}>
           <IngredientHeader>Topping</IngredientHeader>
           <div>
             <Controller
@@ -130,12 +125,12 @@ export const ConfigureExtras = () => {
               control={control}
               defaultValue={false}
               render={({ field }) => (
-                <CheckboxSelect
-                  key={toppingVariant[0]}
-                  onChange={(e) => field.onChange(e.target.checked)}
-                  checked={field.value}
-                  label={toppingVariant[0].toUpperCase()}
-                />
+                  <CheckboxSelect
+                    key={toppingVariant[0]}
+                    onChange={(e) => field.onChange(e.target.checked)}
+                    checked={field.value}
+                    label={toppingVariant[0].toUpperCase()}
+                  />
               )}
             />
           </div>

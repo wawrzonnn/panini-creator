@@ -1,11 +1,20 @@
+@import '../../App.scss';
 .switch__wrapper {
   display: flex;
   width: 100%;
   align-items: center;
-  margin-top: 5px;
+  margin-top: 8px;
   gap: 35px;
+  @include mobile {
+    gap: 50px;
+    width: auto;
+    margin-top: 7px;
+  }
 }
 
 .switch__wrapper p {
   width: 50px;
+  @include mobile {
+    width: 100px;
+  }
 }

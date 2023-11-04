@@ -1,11 +1,17 @@
+@import '../../../App.scss';
+
 .addIcon {
   &:hover {
-      .addIconBackground {
-          fill: black;
-          stroke: black;
-      }
-      path {
-          fill: white;
-      }
+    .addIconBackground {
+      fill: black;
+      stroke: black;
+    }
+    path {
+      fill: white;
+    }
+  }
+  @include mobile {
+    width: 45px;
+    height: 45px;
   }
 }
