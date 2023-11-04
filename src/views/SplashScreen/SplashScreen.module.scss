@@ -34,12 +34,17 @@
   span {
     min-width: 400px;
   }
+  span {
+    min-width: 400px;
+  }
+  @include mobile {
   width: 100%;
   padding: 50px 140px;
   font-size: 24px;
   span {
     min-width: 200px;
   }
+}
 }
 
 .hidden__border {
@@ -145,7 +150,6 @@
   border-left: none;
   border-radius: 0 535px 535px 0;
   right: 74px;
-
   @include mobile {
     right: 44px;
   }
