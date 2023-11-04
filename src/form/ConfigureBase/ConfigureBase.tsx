@@ -22,10 +22,10 @@ import { eggVariants } from '../../data/egg'
 import { formatToTitleCase } from '../../utils/formatToTitleCase'
 import { randomizePanini } from '../../utils/randomizePanini'
 import { convertToTitleCaseWithSpace } from '../../utils/convertToTitleCaseWithSpace'
+import { Switch } from '../../components/Switch/Switch'
 
 type HiddenSectionState = Record<IngredientType, boolean>
 type IngredientType = 'cheese' | 'meat' | 'dressing'
-
 
 const ConfigureBase = () => {
   const { control, setValue, getValues, watch, reset } = useFormContext()
@@ -143,7 +143,6 @@ const ConfigureBase = () => {
             section="base"
           />
         </section>
-
         <section className={styles.ingredients_container}>
           <SwitchWrapper title={'Meat'} handleSwitch={() => handleSwitch('meat')} />
           <IngredientSection
@@ -161,7 +160,9 @@ const ConfigureBase = () => {
         </section>
 
         <section className={styles.ingredients_container}>
-          <SwitchWrapper title={'Dressing'} handleSwitch={() => handleSwitch('dressing')} />
+          <div className={styles.dressing_wrapper}>
+            <SwitchWrapper title={'Dressing'} handleSwitch={() => handleSwitch('dressing')} />
+          </div>
           <IngredientSection
             className={hiddenSections.dressing && styles.hidden}
             fields={dressingFields}
@@ -176,7 +177,7 @@ const ConfigureBase = () => {
           />
         </section>
 
-        <section className={styles.ingredients_container}>
+        <section className={styles.ingredients_container_vegetables}>
           <IngredientHeader>Vegetables</IngredientHeader>
           <div className={styles.vegetables_wrapper}>
             {vegetableVariant.map((veggie, index) => (

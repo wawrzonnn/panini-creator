@@ -1,9 +1,8 @@
+@import '../../App.scss';
+
 .title {
-  color: var(--black, #000);
-  font-family: Instrument Serif;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-align: left;
+    @include mobile {
+        font-size: 36px;
+        text-align: left ;
+    }
 }

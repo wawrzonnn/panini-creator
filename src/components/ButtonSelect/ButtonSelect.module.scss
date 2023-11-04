@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .default {
   display: inline-flex;
   padding: 10px 20px;
@@ -10,14 +12,14 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
+  @include mobile {
+    padding: 15px 15px;
+    height: 100%;
+    font-size: 26px;
+  }
 }
 
 .selected {
   border: 0.5px solid var(--black, #000);
   background: var(--white, #fff);
-}
-
-.dupa {
-  background-color: red;
-  width: 300px;
 }

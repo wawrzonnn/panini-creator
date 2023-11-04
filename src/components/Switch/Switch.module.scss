@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .label {
   display: flex;
   width: 27px;
@@ -8,7 +10,11 @@
   border-radius: 32px;
   padding: 0 3px;
   transition: 1s;
-  cursor: pointer
+  cursor: pointer;
+  @include mobile {
+    width: 81px;
+    height: 51px;
+  }
 }
 
 .label input {
@@ -23,18 +29,22 @@
   width: 9px;
   background: black;
   border: 0.5px solid black;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
   border-radius: 16px;
   margin-left: 10px;
+  @include mobile {
+    width: 32px;
+    height: 32px;
+    border-radius: 48px; 
+    margin-left: 40px;
+  }
 }
 
 .sliderChecked {
   background-color: white;
   margin-left: 0;
   margin-right: 9px;
+  @include mobile {
+    margin-left: 5px;
+  }
 }
-
-
-
-

@@ -1,10 +1,14 @@
+@import '../../App.scss';
+
 .wrapper {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
+  @include mobile {
+      flex-direction: row-reverse;
+  }
 }
-
 .radio {
   display: flex;
   justify-content: center;
@@ -17,6 +21,10 @@
   background: white;
   cursor: pointer;
 
+  @include mobile {
+    width: 34px;
+    height: 34px;
+  }
   &:checked:after {
     content: '';
     display: block;
@@ -24,6 +32,10 @@
     height: 7px;
     background: black;
     border-radius: 50%;
+    @include mobile {
+      width: 14px;
+      height: 14px;
+    }
   }
 }
 
@@ -36,4 +48,8 @@
   font-weight: 400;
   line-height: normal;
   cursor: pointer;
+  @include mobile {
+    font-size: 22px;
+    min-width: 120px;
+  }
 }
