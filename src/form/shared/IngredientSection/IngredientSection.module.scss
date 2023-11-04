@@ -1,44 +1,42 @@
 @import '../../../App.scss';
 
-.add_more { 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 50px;
-    margin-bottom: 15px;
-    @include mobile {
-      gap: 15px;
-      margin-bottom: 15px;
-    }
+.add_more {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 15px;
+  @include mobile {
+    gap: 10px;
   }
+}
 
-  .ingredients_column {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: -15px;
-    @include mobile {
-gap: 15px;
-      padding-bottom: 20px;
-    }
+.ingredients_column {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -15px;
+  @include mobile {
+    margin: 0;
+    margin-top: 25px;
   }
+}
 
-  .separator {
-    position: relative;
-  
-    &::after {
-      content: '';
-      position: absolute;
-      top: -6.5px;
-      left: 124px;
+.separator {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -6.5px;
+    left: 124px;
+    width: 60px;
+    height: 0.5px;
+    background-color: black;
+    transform: translate(-50%, -50%);
+    @include mobile {
       width: 60px;
-      height: 0.5px;
-      background-color: black;
-      transform: translate(-50%, -50%);
-      @include mobile {
-        width: 120px;
-        left: 150px;
-        top: -15.5px;
-      }
+      left: 83px;
+      top: -5.5px;
     }
   }
+}

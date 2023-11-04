@@ -19,8 +19,8 @@
   cursor: pointer;
   position: relative;
   @include mobile {
-    width: 34px;
-    height: 34px;
+    width: 17px;
+    height: 17px;
   }
 }
 
@@ -40,8 +40,8 @@
   height: 7px;
   background: black;
   @include mobile {
-    width: 14px;
-    height: 14px;
+    width: 7px;
+    height: 7px;
   }
 }
 
@@ -56,8 +56,8 @@
   line-height: normal;
   cursor: pointer;
   @include mobile {
-    font-size: 22px;
-    min-width: 120px;
+    font-size: 14px;
+    min-width: 100px;
   }
 }
 

@@ -45,7 +45,7 @@ export const CarouselSelect = ({
         <button type="button" onClick={handlePrev}>
           <ArrowLeft />
         </button>
-        <span>
+        <span className={styles.icon_wrapper}>
           {icon}
           {selectedItem}
         </span>

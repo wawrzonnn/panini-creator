@@ -17,9 +17,9 @@
   @include mobile {
     height: 100%;
     width: 100%;
-    font-size: 22px;
+    font-size: 12px;
     max-width: 100%;
-    width: 249px;
+    min-width: 165px;
   }
 }
 
@@ -40,9 +40,9 @@
   text-overflow: ellipsis;
 }
 
-.wrapper svg {
+.icon_wrapper {
   @include mobile {
-    width: 35px;
-    height: 35px;
-      }
+    display: flex;
+    justify-content: center;
+  }
 }

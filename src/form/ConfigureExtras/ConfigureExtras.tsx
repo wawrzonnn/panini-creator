@@ -117,7 +117,7 @@ export const ConfigureExtras = () => {
           </div>
         </section>
 
-        <section className={` ${styles.ingredients_container_center} ${styles.checkbox_section}`}>
+        <section className={styles.ingredients_container_center}>
           <IngredientHeader>Topping</IngredientHeader>
           <div>
             <Controller

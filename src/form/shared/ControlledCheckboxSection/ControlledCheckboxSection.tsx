@@ -12,7 +12,7 @@ interface ControlledCheckboxSectionProps {
 }
 
 export const ControlledCheckboxSection = ({ name, label, control, title }: ControlledCheckboxSectionProps) => (
-    <section className={` ${styles.ingredients_container_center} ${styles.checkbox_section}`}>
+    <section className={styles.ingredients_container_center}>
       <IngredientHeader>{title}</IngredientHeader>
       <div>
         <Controller
