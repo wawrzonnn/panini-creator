@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .container {
   background-color: white;
   height: 1000px;
@@ -7,6 +9,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include mobile {
+    height: 100%; 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .header {
@@ -27,6 +35,12 @@
   span {
     min-width: 400px;
   }
+  @include mobile {
+    height: 100%; 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .hidden__border {
@@ -46,6 +60,12 @@
   background: none;
   cursor: pointer;
   z-index: 998;
+  @include mobile {
+    height: 100%; 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .button:hover {
@@ -55,64 +75,13 @@
 
 .button_start_again {
   min-width: 130px;
-}
-
-
-
-.circle {
-  position: absolute;
-  width: 1070px;
-  height: 1070px;
-  border-radius: 50%;
-  border: 0.5px solid black;
-  background: transparent;
- 
-
-  &__leftinner {
-    @extend .circle;
-    right: 350px;
-  }
-  &__rightinner {
-    @extend .circle;
-    left: 350px;
-  }
-  &__left {
-    @extend .circle;
-    right: 950px;
-  }
-  &__right {
-    @extend .circle;
-    left: 950px;
+  @include mobile {
+    height: 100%; 
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
 
-.halfCircle__left {
-  @extend .circle;
-  width: 535px;
-  border-right: none;
-  border-radius: 535px 0 0 535px;
-  left: 74px;
-}
 
-.halfCircle__right {
-  @extend .circle;
-  width: 535px;
-  border-left: none;
-  border-radius: 0 535px 535px 0;
-  right: 74px;
-}
-
-.circle__up {
-  @extend .circle;
-  width: 632px;
-  height: 632px;
-  top: -210px;
-}
-
-.circle__down {
-  @extend .circle;
-  width: 632px;
-  height: 632px;
-  bottom: -210px;
-}
 

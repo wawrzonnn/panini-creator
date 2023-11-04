@@ -17,8 +17,9 @@
   padding: 20px 0;
   @include mobile {
     flex-direction: column;
-    gap: 20px;
-    padding: 30px 0;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px 0;
   }
 }
 
@@ -27,8 +28,8 @@
   flex-direction: column;
   button {
     @include mobile {
-      padding: 30px 10px;
-      font-size: 22px;
+      padding: 15px 5px;
+      font-size: 18px;
       border: 0.5px solid black;
     }
   }

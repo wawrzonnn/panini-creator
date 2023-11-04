@@ -20,11 +20,6 @@
   border-radius: 50%;
   background: white;
   cursor: pointer;
-
-  @include mobile {
-    width: 34px;
-    height: 34px;
-  }
   &:checked:after {
     content: '';
     display: block;
@@ -32,10 +27,6 @@
     height: 7px;
     background: black;
     border-radius: 50%;
-    @include mobile {
-      width: 14px;
-      height: 14px;
-    }
   }
 }
 
@@ -49,7 +40,7 @@
   line-height: normal;
   cursor: pointer;
   @include mobile {
-    font-size: 22px;
-    min-width: 120px;
+    font-size: 14px;
+    min-width: 110px;
   }
 }
