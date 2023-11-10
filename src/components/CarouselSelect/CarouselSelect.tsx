@@ -30,7 +30,7 @@ export const CarouselSelect = ({
     setLocalSelectedItem(nextItem)
     onSelect(nextItem)
   }
-
+//sss
   const handlePrev = () => {
     const currentIndex = items.indexOf(selectedItem)
     const prevIndex = currentIndex === 0 ? items.length - 1 : currentIndex - 1
