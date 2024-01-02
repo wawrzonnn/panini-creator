@@ -49,8 +49,8 @@
   width: 250px;
   height: 35px;
   @include mobile {
-    min-width: 140px;
-width: 100%;
+    min-width: 169px;
+    width: 100%;
     height: 100%;
     font-size: 12px;
     padding: 5px 20px;
@@ -71,5 +71,5 @@ width: 100%;
   @include mobile {
     width: 15px;
     height: 15px;
-      }
+  }
 }
